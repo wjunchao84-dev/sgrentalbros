@@ -22,13 +22,13 @@ Set handoff true only when personal help from Wang is appropriate. Do not includ
 
 export default async function handler(req,res){
  if(req.method!=="POST")return res.status(405).json({error:"Method not allowed"});
- if(!process.env.OPENAI_API_KEY)return res.status(503).json({error:"AI concierge is being connected. Please try again shortly."});
+ if(!process.env.AI_GATEWAY_API_KEY)return res.status(503).json({error:"AI concierge is being connected. Please try again shortly."});
  try{
   const body=typeof req.body==="string"?JSON.parse(req.body):req.body||{};
   const messages=Array.isArray(body.messages)?body.messages.slice(-12):[];
   if(!messages.length)return res.status(400).json({error:"No conversation supplied"});
   const transcript=messages.map(m=>(m.role==="assistant"?"Concierge":"Visitor")+": "+String(m.content||"").slice(0,2000)).join("\n");
-  const r=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+process.env.OPENAI_API_KEY},body:JSON.stringify({model:"gpt-5.6-luna",instructions:SYSTEM,input:transcript,max_output_tokens:700})});
+  const r=await fetch("https://ai-gateway.vercel.sh/v1/responses",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+process.env.AI_GATEWAY_API_KEY},body:JSON.stringify({model:"openai/gpt-5.6-luna",instructions:SYSTEM,input:transcript,max_output_tokens:700})});
   const data=await r.json();
   if(!r.ok)throw new Error(data.error?.message||"AI request failed");
   const text=data.output_text||data.output?.flatMap(x=>x.content||[]).map(x=>x.text||"").join("")||"";
