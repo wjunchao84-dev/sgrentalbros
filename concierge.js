@@ -2,6 +2,9 @@ const input=document.getElementById('conciergeInput');
 const out=document.getElementById('conciergeOutput');
 const form=document.getElementById('conciergeForm');
 let state={journey:null,answers:{},original:""};
+const saved=localStorage.getItem("sgrb_concierge");
+if(saved){try{const parsed=JSON.parse(saved);if(parsed&&parsed.journey&&journeysSafe(parsed.journey)){state=parsed;setTimeout(()=>renderConversation(),0)}}catch(e){}}
+function journeysSafe(k){return ["home","move","tenancy","service","landlord"].includes(k)}
 
 const journeys={
  home:{name:"Find a Home",icon:"🏠",questions:[
@@ -45,7 +48,7 @@ form.addEventListener('submit',e=>{
  const q=input.value.trim(); if(!q)return;
  if(!state.journey){start(detect(q),q);return}
  const j=journeys[state.journey], unanswered=j.questions.find(x=>!state.answers[x[0]]);
- if(unanswered){state.answers[unanswered[0]]=q;input.value="";renderConversation();return}
+ if(unanswered){state.answers[unanswered[0]]=q;saveState();input.value="";renderConversation();return}
  buildPlan();
 });
 
@@ -59,6 +62,7 @@ function detect(q){
 }
 function start(type,q){
  state={journey:type,answers:{},original:q||""};
+ saveState();
  input.value="";
  renderConversation();
 }
@@ -82,6 +86,7 @@ function renderConversation(){
 }
 function buildPlan(){
  const j=journeys[state.journey],a=state.answers;
+ saveState();
  let steps=[],links=[];
  if(state.journey==="home"){
   steps=["Confirm your home-search brief and priorities","Shortlist suitable available homes","Arrange viewings and compare options","Negotiate offer and review the tenancy documents","Prepare stamp duty, handover and move-in","Coordinate any movers, cleaning or other services"];
@@ -103,10 +108,12 @@ function buildPlan(){
  const summary=j.questions.filter(x=>a[x[0]]).map(x=>'<li><b>'+esc(shortLabel(x[0]))+':</b> '+esc(a[x[0]])+'</li>').join('');
  const timeline=steps.map((s,i)=>'<li><span>'+String(i+1).padStart(2,"0")+'</span><div><b>'+esc(s)+'</b>'+timing(i,steps.length)+'</div></li>').join('');
  const resources=links.map(x=>'<a href="'+x[1]+'">'+esc(x[0])+' →</a>').join('');
+ const matches=state.journey==="home"?propertyMatches(a):"";
+ const services=serviceSuggestions(a,state.journey);
  const msg=plainSummary(j,a);
- out.innerHTML='<div class="plan-card"><span class="kicker">YOUR SGRentalBros PLAN</span><h3>'+j.icon+' '+j.name+'</h3><ul class="plan-summary">'+summary+'</ul><h4>Your next-step timeline</h4><ol class="plan-timeline">'+timeline+'</ol><div class="plan-links">'+resources+'</div><div class="human-handoff"><b>Need personal help?</b><p>Wang JC can pick up from here. Your brief will be carried into WhatsApp so you don’t need to explain everything again.</p><a class="btn primary" target="_blank" rel="noopener" href="'+wa(msg)+'">CONTINUE WITH WANG ON WHATSAPP →</a></div><small class="plan-note">This planner provides general guidance. Property availability, provider availability and situation-specific tenancy matters still require confirmation.</small></div>';
+ out.innerHTML='<div class="plan-card"><span class="kicker">YOUR SGRentalBros PLAN</span><h3>'+j.icon+' '+j.name+'</h3><ul class="plan-summary">'+summary+'</ul><h4>Your next-step timeline</h4><ol class="plan-timeline">'+timeline+'</ol><div class="plan-links">'+resources+'</div>'+matches+services+'<div class="human-handoff"><b>Need personal help?</b><p>Wang JC can pick up from here. Your brief will be carried into WhatsApp so you don’t need to explain everything again.</p><a class="btn primary" target="_blank" rel="noopener" href="'+wa(msg)+'">CONTINUE WITH WANG ON WHATSAPP →</a></div><small class="plan-note">This planner provides general guidance. Property availability, provider availability and situation-specific tenancy matters still require confirmation.</small></div>';
  form.querySelector('button').textContent='START ANOTHER PLAN';
- form.onsubmit=e=>{e.preventDefault();location.reload()};
+ form.onsubmit=e=>{e.preventDefault();localStorage.removeItem('sgrb_concierge');location.reload()};
  out.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function timing(i,n){return '<small>'+(i===0?'Start here':i===n-1?'Final step':'Then')+'</small>'}
@@ -114,3 +121,31 @@ function shortLabel(k){return({area:"Area",budget:"Budget",home:"Home",movein:"M
 function plainSummary(j,a){return 'SGRentalBros Concierge Lead\nJourney: '+j.name+'\n'+j.questions.filter(x=>a[x[0]]).map(x=>shortLabel(x[0])+': '+a[x[0]]).join('\n')}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 function wa(summary){return 'https://wa.me/6590091649?text='+encodeURIComponent('Hi Wang! I used the SGRentalBros Rental Concierge.\n\n'+summary+'\n\nPlease help me with the next steps.')}
+
+function saveState(){localStorage.setItem("sgrb_concierge",JSON.stringify(state))}
+function money(v){const m=String(v||"").replace(/,/g,"").match(/\d{3,6}/);return m?Number(m[0]):null}
+function beds(v){const m=String(v||"").match(/\d/);return m?Number(m[0]):null}
+function propertyMatches(a){
+ const budget=money(a.budget),need=beds(a.home),area=(a.area||"").toLowerCase();
+ const homes=[
+  {name:"Prestige Heights",price:2800,beds:0,area:"balestier toa payoh",meta:"Studio · 344 sqft",url:"prestige-heights.html"},
+  {name:"The Armadale",price:5800,beds:3,area:"newton novena",meta:"3 Beds · 1,119 sqft",url:"the-armadale.html"},
+  {name:"Sommerville Grandeur",price:7500,beds:3,area:"tanglin holland bukit timah farrer",meta:"3 Beds · 1,830 sqft",url:"sommerville-grandeur.html"}
+ ];
+ const tokens=area.split(/[,/ ]+/).filter(x=>x.length>3);
+ const scored=homes.map(h=>({h,score:(budget&&h.price<=budget?2:0)+(need!==null&&h.beds===need?2:0)+(tokens.some(t=>h.area.includes(t))?3:0)})).filter(x=>x.score>0).sort((x,y)=>y.score-x.score);
+ if(!scored.length)return '<div class="concierge-match"><span class="kicker">CURRENT SGRentalBros HOMES</span><h4>No obvious match from our current listings yet.</h4><p>Your brief can still be sent to Wang to search beyond the homes currently shown on SGRentalBros.</p></div>';
+ return '<div class="concierge-match"><span class="kicker">POSSIBLE CURRENT MATCHES</span><h4>Homes worth checking against your brief</h4><div class="match-results">'+scored.slice(0,3).map(x=>'<a href="'+x.h.url+'"><b>'+x.h.name+'</b><span>'+x.h.meta+' · S$'+x.h.price.toLocaleString()+'/mo</span><small>Check availability & full details →</small></a>').join('')+'</div><small>These are simple matches against current SGRentalBros listings, not a guarantee of suitability or availability.</small></div>'
+}
+function serviceSuggestions(a,type){
+ const text=Object.values(a).join(" ").toLowerCase();
+ let cards=[];
+ if(/aircon/.test(text))cards.push(['❄️','Aircon servicing','SGRentalBros Recommended: JNS Cool','aircon-services.html']);
+ if(/mov|relocat/.test(text)||type==="move")cards.push(['🚚','Movers','Explore moving providers','moving-services.html']);
+ if(/clean/.test(text)||type==="move")cards.push(['✨','Cleaning','Move-in / move-out cleaning','cleaning-services.html']);
+ if(/lock|key/.test(text))cards.push(['🔑','Locksmith','Locks, keys & digital locks','locksmith-services.html']);
+ if(/paint/.test(text))cards.push(['🎨','Painting','Painting services','painting-services.html']);
+ if(/plumb|leak|toilet|tap/.test(text))cards.push(['🚿','Plumbing','Plumbing services','plumbing-services.html']);
+ if(!cards.length)return "";
+ return '<div class="concierge-services"><span class="kicker">SERVICES FOR YOUR PLAN</span><div class="service-suggestions">'+cards.map(c=>'<a href="'+c[3]+'"><b>'+c[0]+' '+c[1]+'</b><span>'+c[2]+'</span></a>').join('')+'</div></div>'
+}
