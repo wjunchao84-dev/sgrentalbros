@@ -15,7 +15,7 @@ async function send(q){
   const data=await r.json();thinking.remove();
   if(!r.ok)throw new Error(data.error||'AI unavailable');
   const reply=data.reply||'Tell me a little more about what you need.';
-  history.push({role:'assistant',content:reply});addBot(reply,data.suggestions||[],!!data.handoff);
+  history.push({role:'assistant',content:reply});addBot(reply,data.suggestions||[],data.resources||[],!!data.handoff);
   localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-12)));
  }catch(err){
   thinking.remove();addFallback(err.message,q);
@@ -24,10 +24,10 @@ async function send(q){
 function addBubble(role,text){
  const d=document.createElement('div');d.className=role==='user'?'user-bubble':'bot-bubble';d.textContent=text;out.appendChild(d);scroll();
 }
-function addBot(text,suggestions,handoff){
+function addBot(text,suggestions,resources,handoff){
  const d=document.createElement('div');d.className='bot-bubble';
  const p=document.createElement('div');p.className='ai-reply';p.textContent=text;d.appendChild(p);
- if(suggestions.length){const s=document.createElement('div');s.className='ai-suggestions';suggestions.slice(0,3).forEach(x=>{const b=document.createElement('button');b.type='button';b.textContent=x;b.onclick=()=>send(x);s.appendChild(b)});d.appendChild(s)}
+ if(resources.length){const r=document.createElement('div');r.className='ai-resources';resources.slice(0,3).forEach(x=>{if(!/^[a-z0-9-]+\.html(?:#[-a-z0-9]+)?$/i.test(x.url||''))return;const a=document.createElement('a');a.href=x.url;a.innerHTML='<small>'+esc((x.type||'resource').toUpperCase())+'</small><b>'+esc(x.label||'View resource')+' →</b>';r.appendChild(a)});d.appendChild(r)} if(suggestions.length){const s=document.createElement('div');s.className='ai-suggestions';suggestions.slice(0,3).forEach(x=>{const b=document.createElement('button');b.type='button';b.textContent=x;b.onclick=()=>send(x);s.appendChild(b)});d.appendChild(s)}
  if(handoff){const a=document.createElement('a');a.className='mini ai-wa';a.target='_blank';a.rel='noopener';a.href=wa();a.textContent='CONTINUE WITH WANG ON WHATSAPP →';d.appendChild(a)}
  out.appendChild(d);scroll();
 }
