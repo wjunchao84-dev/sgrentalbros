@@ -36,7 +36,7 @@ export default async function handler(req,res){
   const data=await r.json();
   if(!r.ok)throw new Error(data.error?.message||"AI request failed");
   const text=data.output_text||data.output?.flatMap(x=>x.content||[]).map(x=>x.text||"").join("")||"";
-  let answer;try{answer=JSON.parse(text)}catch{answer={reply:text,stage:"discover",suggestions:[],resources:[],journey:null,handoff:false}}
+  let answer;try{answer=JSON.parse(text)}catch{answer={reply:text,stage:"discover",suggestions:[],resources:[],journey:null,lead_summary:null,handoff:false}}
   return res.status(200).json(answer);
  }catch(e){return res.status(500).json({error:"The concierge had trouble replying. Please try again or continue with Wang on WhatsApp."})}
 }
