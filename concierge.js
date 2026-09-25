@@ -2,6 +2,7 @@ const input=document.getElementById('conciergeInput');
 const out=document.getElementById('conciergeOutput');
 const form=document.getElementById('conciergeForm');
 const history=[];
+const MAX_HISTORY=20;
 const WA='6590091649';
 let latestLead=null;
 let latestViewing=null;
@@ -13,12 +14,12 @@ async function send(q){
  addBubble('user',q);history.push({role:'user',content:q});input.value='';
  setBusy(true);const thinking=document.createElement('div');thinking.className='bot-bubble ai-thinking';thinking.textContent='SGRentalBros AI is working on this…';out.appendChild(thinking);
  try{
-  const r=await fetch('/api/concierge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})});
+  const r=await fetch('/api/concierge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history.slice(-MAX_HISTORY)})});
   const data=await r.json();thinking.remove();
   if(!r.ok)throw new Error(data.error||'AI unavailable');
   const reply=data.reply||'Tell me a little more about what you need.';
   history.push({role:'assistant',content:reply});latestLead=data.lead_summary||latestLead;latestViewing=data.viewing_brief||latestViewing;addBot(reply,data.suggestions||[],data.resources||[],data.journey||null,data.property_search||null,data.viewing_brief||null,data.next_step||null,data.lead_summary||null,!!data.handoff);
-  localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-12)));
+  localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-MAX_HISTORY)));
  }catch(err){
   thinking.remove();addFallback(err.message,q);
  }finally{setBusy(false)}
@@ -62,4 +63,4 @@ function setBusy(v){const b=form.querySelector('button');b.disabled=v;b.textCont
 function scroll(){out.scrollIntoView({behavior:'smooth',block:'nearest'})}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 
-try{const saved=JSON.parse(localStorage.getItem('sgrb_ai_history')||'[]');if(Array.isArray(saved)&&saved.length){saved.slice(-12).forEach(m=>{history.push(m);addBubble(m.role,m.content)})}}catch(e){}
+try{const saved=JSON.parse(localStorage.getItem('sgrb_ai_history')||'[]');if(Array.isArray(saved)&&saved.length){saved.slice(-MAX_HISTORY).forEach(m=>{history.push(m);addBubble(m.role,m.content)})}}catch(e){}
