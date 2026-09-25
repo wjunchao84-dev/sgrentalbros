@@ -21,3 +21,7 @@
 .ai-journey-item time{font-size:11px;color:var(--muted);text-transform:uppercase;font-weight:800}
 .ai-journey-item b{font-size:14px}
 .ai-journey-item p{font-size:12px;color:var(--muted);margin:2px 0 0;line-height:1.45}
+.ai-handoff-summary{display:grid;gap:4px;margin-top:14px;padding:12px 14px;border:1px solid #ead49b;border-radius:11px;background:#fffaf0}
+.ai-handoff-summary small{font-size:10px;letter-spacing:.12em;font-weight:900;color:#8b6816}
+.ai-handoff-summary b{font-size:14px;color:#07182d}
+.ai-handoff-summary p{font-size:12px;line-height:1.45;color:var(--muted);margin:0}
