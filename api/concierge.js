@@ -13,13 +13,13 @@ Services include aircon, plumbing, cleaning, movers, handyman, electrical, locks
 
 For tenancy/legal/regulatory questions, provide general practical information, make uncertainty clear, do not invent Singapore rules, and suggest checking the tenancy agreement or an official source where needed. Do not claim to have reviewed a document you have not seen.
 
-When the visitor gives a target move-in or move-out date, help create a practical timeline. When they need a home, collect area, budget, bedrooms, move-in date and household only as needed. When they need services, identify the service and timing.
+When the visitor gives a target move-in or move-out date, create a practical dated journey by working backwards from that target. Dates are planning targets, not legal deadlines. Do not invent statutory deadlines. If the year is omitted, infer the next future occurrence using TODAY supplied with the request; if genuinely ambiguous, ask. For a home search, typical planning phases can include search/shortlist, view/offer, tenancy paperwork, movers/services, handover/inventory and move-in. For move-out, include preparation, services/cleaning where applicable, handover and records. Tailor the phases to the facts rather than mechanically using all of them. When they need a home, collect area, budget, bedrooms, move-in date and household only as needed. When they need services, identify the service and timing.
 
 Escalate naturally to Wang JC when the visitor wants agent representation, property search beyond current listings, negotiation, a case-specific tenancy issue, or personal assistance. Wang JC is with Huttons Asia, CEA R008015F.
 
 Return ONLY valid JSON in this exact shape:
-{"reply":"your conversational response","stage":"discover|plan|recommend|handoff","suggestions":["short action 1","short action 2"],"resources":[{"label":"resource name","url":"relative-url.html","type":"property|guide|service"}],"handoff":false}
-Only put a resource in resources if its exact URL appears in the supplied KNOWLEDGE. Prefer 0-3 highly relevant resources, not a long list. Set handoff true only when personal help from Wang is appropriate. Do not include markdown code fences.`;
+{"reply":"your conversational response","stage":"discover|plan|recommend|handoff","suggestions":["short action 1","short action 2"],"resources":[{"label":"resource name","url":"relative-url.html","type":"property|guide|service"}],"journey":{"title":"short plan title","target_date":"YYYY-MM-DD or empty","items":[{"date":"YYYY-MM-DD","label":"milestone","detail":"short practical action"}]},"handoff":false}
+Return journey as null unless a target move-in, move-out, lease-end or other useful target date is known. When journey is present, use 3-7 chronological dated milestones and make the final milestone the target event. Only put a resource in resources if its exact URL appears in the supplied KNOWLEDGE. Prefer 0-3 highly relevant resources, not a long list. Set handoff true only when personal help from Wang is appropriate. Do not include markdown code fences.`;
 
 export default async function handler(req,res){
  if(req.method!=="POST")return res.status(405).json({error:"Method not allowed"});
@@ -28,12 +28,14 @@ export default async function handler(req,res){
   const body=typeof req.body==="string"?JSON.parse(req.body):req.body||{};
   const messages=Array.isArray(body.messages)?body.messages.slice(-12):[];
   if(!messages.length)return res.status(400).json({error:"No conversation supplied"});
-  const transcript=messages.map(m=>(m.role==="assistant"?"Concierge":"Visitor")+": "+String(m.content||"").slice(0,2000)).join("\n");\n  const context=relevantKnowledge(messages.map(m=>m.content||"").join(" "));\n  const groundedInput="KNOWLEDGE (curated SGRentalBros data):\\n"+JSON.stringify(context)+"\\n\\nCONVERSATION:\\n"+transcript;
+  const transcript=messages.map(m=>(m.role==="assistant"?"Concierge":"Visitor")+": "+String(m.content||"").slice(0,2000)).join("\n");
+  const context=relevantKnowledge(messages.map(m=>m.content||"").join(" "));
+  const groundedInput="KNOWLEDGE (curated SGRentalBros data):\\n"+JSON.stringify(context)+"\\n\\nCONVERSATION:\\n"+transcript;
   const r=await fetch("https://ai-gateway.vercel.sh/v1/responses",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+process.env.AI_GATEWAY_API_KEY},body:JSON.stringify({model:"openai/gpt-5.6-luna",instructions:SYSTEM,input:groundedInput,max_output_tokens:900})});
   const data=await r.json();
   if(!r.ok)throw new Error(data.error?.message||"AI request failed");
   const text=data.output_text||data.output?.flatMap(x=>x.content||[]).map(x=>x.text||"").join("")||"";
-  let answer;try{answer=JSON.parse(text)}catch{answer={reply:text,stage:"discover",suggestions:[],resources:[],handoff:false}}
+  let answer;try{answer=JSON.parse(text)}catch{answer={reply:text,stage:"discover",suggestions:[],resources:[],journey:null,handoff:false}}
   return res.status(200).json(answer);
  }catch(e){return res.status(500).json({error:"The concierge had trouble replying. Please try again or continue with Wang on WhatsApp."})}
 }
