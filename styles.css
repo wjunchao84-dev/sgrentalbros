@@ -43,3 +43,4 @@
 .ai-next-step small{font-size:10px;letter-spacing:.12em;font-weight:900;color:#e3bd67}
 .ai-next-step b{font-size:15px}.ai-next-step p{margin:0;color:#d7e0e8;font-size:12px;line-height:1.5}
 .ai-next-step button{justify-self:start;margin-top:4px;border:0;border-radius:8px;padding:9px 11px;background:#e3bd67;color:#07182d;font-weight:900;cursor:pointer}
+.legal-page{max-width:900px;margin:auto}.legal-page h1{margin-bottom:18px}.legal-page h2{margin-top:30px;margin-bottom:8px;font-size:20px}.legal-page p{line-height:1.75;color:#53606d}.legal-callout{margin-top:30px;padding:18px;border:1px solid #e3d4af;border-radius:12px;background:#fffaf0}.legal-callout p{margin:5px 0 0}.form-privacy{font-size:11px;line-height:1.45;color:#68737d;margin:4px 0 10px}.form-privacy a,.ai-disclaimer a,footer a{color:inherit;text-decoration:underline;text-underline-offset:2px}
