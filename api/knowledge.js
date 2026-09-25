@@ -49,7 +49,7 @@ services:[
  ["Handyman","handyman-services.html","installation and small repairs"],
  ["Electrical","electrical-services.html","lights, sockets and electrical issues"],
  ["Locksmith","locksmith-services.html","locks, keys and digital locks"],
- ["Curtains & Blinds","curtain-services.html","supply, cleaning and installation"],
+ ["Curtains & Blinds","curtain-services.html","YT Interiors is SGRentalBros Recommended for curtains/interiors based on SGRentalBros experience/referral; not a guarantee of workmanship, price or availability. Business profile: https://www.sgpbusiness.com/company/Yt-Interiors"],
  ["Painting","painting-services.html","touch-ups and whole-home painting"],
  ["Pest Control","pest-control-services.html","treatment and prevention"],
  ["Appliance Repair","appliance-repair-services.html","home appliance repair"],
