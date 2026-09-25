@@ -6,6 +6,13 @@ const MAX_HISTORY=20;
 const WA='6590091649';
 let latestLead=null;
 let latestViewing=null;
+const STARTERS={
+ 'find-home':'I need to find a rental home. Help me build my search and viewing plan.',
+ 'viewings':'I want SGRentalBros to help me shortlist homes and coordinate my viewings.',
+ 'move':'I am moving and need help planning my rental journey and services.',
+ 'tenancy':'I have a tenancy issue and need help understanding my next steps.',
+ 'landlord':'I am a landlord and want help renting out my property.'
+};
 
 document.querySelectorAll('[data-text]').forEach(b=>b.onclick=()=>send(b.dataset.text));
 form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(q)send(q)});
@@ -63,4 +70,5 @@ function setBusy(v){const b=form.querySelector('button');b.disabled=v;b.textCont
 function scroll(){out.scrollIntoView({behavior:'smooth',block:'nearest'})}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 
-try{const saved=JSON.parse(localStorage.getItem('sgrb_ai_history')||'[]');if(Array.isArray(saved)&&saved.length){saved.slice(-MAX_HISTORY).forEach(m=>{history.push(m);addBubble(m.role,m.content)})}}catch(e){}
+let restored=false;try{const saved=JSON.parse(localStorage.getItem('sgrb_ai_history')||'[]');if(Array.isArray(saved)&&saved.length){saved.slice(-MAX_HISTORY).forEach(m=>{history.push(m);addBubble(m.role,m.content)});restored=true}}catch(e){}
+const starter=new URLSearchParams(location.search).get('start');if(!restored&&starter&&STARTERS[starter]){input.value=STARTERS[starter];input.focus()}
