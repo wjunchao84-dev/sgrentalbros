@@ -16,7 +16,7 @@ async function send(q){
   const data=await r.json();thinking.remove();
   if(!r.ok)throw new Error(data.error||'AI unavailable');
   const reply=data.reply||'Tell me a little more about what you need.';
-  history.push({role:'assistant',content:reply});latestLead=data.lead_summary||latestLead;addBot(reply,data.suggestions||[],data.resources||[],data.journey||null,data.lead_summary||null,!!data.handoff);
+  history.push({role:'assistant',content:reply});latestLead=data.lead_summary||latestLead;addBot(reply,data.suggestions||[],data.resources||[],data.journey||null,data.property_search||null,data.lead_summary||null,!!data.handoff);
   localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-12)));
  }catch(err){
   thinking.remove();addFallback(err.message,q);
@@ -25,10 +25,11 @@ async function send(q){
 function addBubble(role,text){
  const d=document.createElement('div');d.className=role==='user'?'user-bubble':'bot-bubble';d.textContent=text;out.appendChild(d);scroll();
 }
-function addBot(text,suggestions,resources,journey,lead,handoff){
+function addBot(text,suggestions,resources,journey,search,lead,handoff){
  const d=document.createElement('div');d.className='bot-bubble';
  const p=document.createElement('div');p.className='ai-reply';p.textContent=text;d.appendChild(p);
  if(journey&&Array.isArray(journey.items)&&journey.items.length){const j=document.createElement('div');j.className='ai-journey';const head=document.createElement('div');head.className='ai-journey-head';head.innerHTML='<small>YOUR RENTAL JOURNEY</small><b>'+esc(journey.title||'Your action plan')+'</b>'+(journey.target_date?'<span>Target: '+esc(formatDate(journey.target_date))+'</span>':'');j.appendChild(head);const list=document.createElement('div');list.className='ai-journey-list';journey.items.slice(0,7).forEach((x,i)=>{const row=document.createElement('div');row.className='ai-journey-item';row.innerHTML='<span>'+(i+1)+'</span><div><time>'+esc(formatDate(x.date))+'</time><b>'+esc(x.label||'Next step')+'</b><p>'+esc(x.detail||'')+'</p></div>';list.appendChild(row)});j.appendChild(list);d.appendChild(j)} if(resources.length){const r=document.createElement('div');r.className='ai-resources';resources.slice(0,3).forEach(x=>{if(!/^[a-z0-9-]+\.html(?:#[-a-z0-9]+)?$/i.test(x.url||''))return;const a=document.createElement('a');a.href=x.url;a.innerHTML='<small>'+esc((x.type||'resource').toUpperCase())+'</small><b>'+esc(x.label||'View resource')+' →</b>';r.appendChild(a)});d.appendChild(r)} if(suggestions.length){const s=document.createElement('div');s.className='ai-suggestions';suggestions.slice(0,3).forEach(x=>{const b=document.createElement('button');b.type='button';b.textContent=x;b.onclick=()=>send(x);s.appendChild(b)});d.appendChild(s)}
+ if(search&&search.external_search){const x=document.createElement('div');x.className='ai-external-search';x.innerHTML='<small>EXTERNAL PROPERTY SEARCH</small><b>'+esc([search.bedrooms?search.bedrooms+' BR':'',search.area||'',search.max_budget?search.max_budget+' max':''].filter(Boolean).join(' · ')||'Continue your search')+'</b><p>Browse external portal results. Listing details and availability should be verified before arranging a viewing.</p>';const links=document.createElement('div');links.className='external-search-links';[['PropertyGuru',search.propertyguru_url],['99.co',search.ninetynine_url]].forEach(([label,url])=>{if(!/^https:\/\/(www\.)?(propertyguru\.com\.sg|99\.co)\//i.test(url||''))return;const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='SEARCH '+label.toUpperCase()+' →';links.appendChild(a)});x.appendChild(links);d.appendChild(x)}
  if(handoff&&lead){const box=document.createElement('div');box.className='ai-handoff-summary';box.innerHTML='<small>READY FOR WANG</small><b>'+esc(lead.need||'Your rental request')+'</b><p>'+esc(lead.help_needed||'Wang can continue from here without you repeating everything.')+'</p>';d.appendChild(box)}
  if(handoff){const a=document.createElement('a');a.className='mini ai-wa';a.target='_blank';a.rel='noopener';a.href=wa();a.textContent='CONTINUE WITH WANG ON WHATSAPP →';d.appendChild(a)}
  out.appendChild(d);scroll();
