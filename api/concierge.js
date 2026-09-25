@@ -30,7 +30,8 @@ export default async function handler(req,res){
   if(!messages.length)return res.status(400).json({error:"No conversation supplied"});
   const transcript=messages.map(m=>(m.role==="assistant"?"Concierge":"Visitor")+": "+String(m.content||"").slice(0,2000)).join("\n");
   const context=relevantKnowledge(messages.map(m=>m.content||"").join(" "));
-  const groundedInput="KNOWLEDGE (curated SGRentalBros data):\\n"+JSON.stringify(context)+"\\n\\nCONVERSATION:\\n"+transcript;
+  const today=new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Singapore"});
+  const groundedInput="TODAY IN SINGAPORE: "+today+"\\nKNOWLEDGE (curated SGRentalBros data):\\n"+JSON.stringify(context)+"\\n\\nCONVERSATION:\\n"+transcript;
   const r=await fetch("https://ai-gateway.vercel.sh/v1/responses",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+process.env.AI_GATEWAY_API_KEY},body:JSON.stringify({model:"openai/gpt-5.6-luna",instructions:SYSTEM,input:groundedInput,max_output_tokens:900})});
   const data=await r.json();
   if(!r.ok)throw new Error(data.error?.message||"AI request failed");
