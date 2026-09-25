@@ -18,9 +18,9 @@ export default async function handler(req,res){
  if(!process.env.AI_GATEWAY_API_KEY)return res.status(503).json({error:"AI concierge is being connected. Please try again shortly."});
  try{
   const body=typeof req.body==="string"?JSON.parse(req.body):req.body||{};
-  const messages=Array.isArray(body.messages)?body.messages.slice(-12):[];
+  const messages=Array.isArray(body.messages)?body.messages.slice(-20):[];
   if(!messages.length)return res.status(400).json({error:"No conversation supplied"});
-  const transcript=messages.map(m=>(m.role==="assistant"?"Concierge":"Visitor")+": "+String(m.content||"").slice(0,2000)).join("\n");
+  const transcript=messages.map(m=>(m.role==="assistant"?"Concierge":"Visitor")+": "+String(m.content||"").slice(0,2500)).join("\n");
   const context=relevantKnowledge(messages.map(m=>m.content||"").join(" "));
   const today=new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Singapore"});
   const groundedInput="TODAY IN SINGAPORE: "+today+"\\nKNOWLEDGE (curated SGRentalBros data):\\n"+JSON.stringify(context)+"\\n\\nCONVERSATION:\\n"+transcript;
