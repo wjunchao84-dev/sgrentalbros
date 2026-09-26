@@ -11,7 +11,7 @@ const STARTERS={
  'viewings':'I want SGRentalBros to help me shortlist homes and coordinate my viewings.',
  'move':'I am moving and need help planning my rental journey and services.',
  'tenancy':'I have a tenancy issue and need help understanding my next steps.',
- 'landlord':'I am a landlord and want help renting out my property.'
+ 'landlord':'I own a property and want help reviewing the rental, preparing it for market and finding my next tenant.'
 };
 
 document.querySelectorAll('[data-text]').forEach(b=>b.onclick=()=>send(b.dataset.text));
@@ -54,8 +54,8 @@ function wa(extra=''){
  const l=latestLead;
  let body='Hi Wang! I used the SGRentalBros AI Rental Concierge.\n\n';
  if(l){
-  const rows=[['Profile',l.persona],['Need',l.need],['Area',l.area],['Property',l.property],['Budget',l.budget],['Bedrooms',l.bedrooms],['Target date',l.target_date],['Household',l.household],['Services',Array.isArray(l.services)?l.services.join(', '):l.services],['Issue',l.issue],['Help needed',l.help_needed]].filter(x=>x[1]);
-  body+='AI LEAD SUMMARY\n'+rows.map(x=>x[0]+': '+x[1]).join('\n');
+  const rows=[['Profile',l.persona],['Need',l.need],['Area',l.area],['Property',l.property],['Property type',l.property_type],['Bedrooms',l.bedrooms],['Size',l.size],['Availability',l.availability||l.target_date],['Furnishing',l.furnishing],['Current / expected rent',l.expected_rent],['Unit highlights',l.unit_highlights],['Marketing status',l.marketing_status],['Budget',l.budget],['Household',l.household],['Services',Array.isArray(l.services)?l.services.join(', '):l.services],['Issue',l.issue],['Help needed',l.help_needed]].filter(x=>x[1]);
+  body+=(l.persona==='landlord'?'LANDLORD LISTING LEAD':'AI LEAD SUMMARY')+'\n'+rows.map(x=>x[0]+': '+x[1]).join('\n');
   if(latestViewing&&latestViewing.ready){const v=latestViewing;const vr=[['Viewing area',v.areas],['Viewing preferences',v.preferences],['Preferred viewing times',v.viewing_times]].filter(x=>x[1]);if(vr.length)body+='\n\nVIEWING BRIEF\n'+vr.map(x=>x[0]+': '+x[1]).join('\n');}
  }else{
   const visitor=history.filter(m=>m.role==='user').map(m=>m.content).join('\n- ');
