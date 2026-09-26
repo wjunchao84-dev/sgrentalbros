@@ -29,7 +29,7 @@ async function send(q){
   if(!r.ok)throw new Error(data.error||'AI unavailable');
   const reply=data.reply||'Tell me a little more about what you need.';
   history.push({role:'assistant',content:reply});latestLead=data.lead_summary||latestLead;latestViewing=data.viewing_brief||latestViewing;addBot(reply,data.suggestions||[],data.resources||[],data.journey||null,data.property_search||null,data.viewing_brief||null,data.next_step||null,data.lead_summary||null,!!data.handoff);
-  localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-MAX_HISTORY)));
+  try{localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-MAX_HISTORY)))}catch(e){}
  }catch(err){
   thinking.remove();addFallback(err.message,q);
  }finally{requestInFlight=false;setBusy(false)}
