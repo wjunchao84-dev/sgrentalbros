@@ -31,6 +31,18 @@ export default async function handler(req,res){
   if(!r.ok)throw new Error(data.error?.message||"AI request failed");
   const text=data.output_text||data.output?.flatMap(x=>x.content||[]).map(x=>x.text||"").join("")||"";
   let answer;try{answer=JSON.parse(text)}catch{answer={reply:text,stage:"discover",suggestions:[],resources:[],journey:null,property_search:null,viewing_brief:null,next_step:null,lead_summary:null,handoff:false}}
-  return res.status(200).json(answer);
+  const safe={
+   reply:typeof answer.reply==="string"&&answer.reply.trim()?answer.reply.trim():"Tell me a little more about what you need.",
+   stage:["discover","plan","recommend","handoff"].includes(answer.stage)?answer.stage:"discover",
+   suggestions:Array.isArray(answer.suggestions)?answer.suggestions.filter(x=>typeof x==="string").slice(0,3):[],
+   resources:Array.isArray(answer.resources)?answer.resources.filter(x=>x&&typeof x==="object").slice(0,3):[],
+   journey:answer.journey&&typeof answer.journey==="object"?answer.journey:null,
+   property_search:answer.property_search&&typeof answer.property_search==="object"?answer.property_search:null,
+   viewing_brief:answer.viewing_brief&&typeof answer.viewing_brief==="object"?answer.viewing_brief:null,
+   next_step:answer.next_step&&typeof answer.next_step==="object"?answer.next_step:null,
+   lead_summary:answer.lead_summary&&typeof answer.lead_summary==="object"?answer.lead_summary:null,
+   handoff:answer.handoff===true
+  };
+  return res.status(200).json(safe);
  }catch(e){return res.status(500).json({error:"The concierge had trouble replying. Please try again or continue with Wang on WhatsApp."})}
 }
