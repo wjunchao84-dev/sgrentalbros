@@ -6,6 +6,7 @@ const MAX_HISTORY=20;
 const WA='6590091649';
 let latestLead=null;
 let latestViewing=null;
+let requestInFlight=false;
 const STARTERS={
  'find-home':'I need to find a rental home. Help me build my search and viewing plan.',
  'viewings':'I want SGRentalBros to help me shortlist homes and coordinate my viewings.',
@@ -18,6 +19,8 @@ document.querySelectorAll('[data-text]').forEach(b=>b.onclick=()=>send(b.dataset
 form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(q)send(q)});
 
 async function send(q){
+ if(requestInFlight)return;
+ requestInFlight=true;
  addBubble('user',q);history.push({role:'user',content:q});input.value='';
  setBusy(true);const thinking=document.createElement('div');thinking.className='bot-bubble ai-thinking';thinking.textContent='SGRentalBros AI is working on this…';out.appendChild(thinking);
  try{
@@ -29,7 +32,7 @@ async function send(q){
   localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-MAX_HISTORY)));
  }catch(err){
   thinking.remove();addFallback(err.message,q);
- }finally{setBusy(false)}
+ }finally{requestInFlight=false;setBusy(false)}
 }
 function addBubble(role,text){
  const d=document.createElement('div');d.className=role==='user'?'user-bubble':'bot-bubble';d.textContent=text;out.appendChild(d);scroll();
@@ -37,7 +40,7 @@ function addBubble(role,text){
 function addBot(text,suggestions,resources,journey,search,viewing,next,lead,handoff){
  const d=document.createElement('div');d.className='bot-bubble';
  const p=document.createElement('div');p.className='ai-reply';p.textContent=text;d.appendChild(p);
- if(journey&&Array.isArray(journey.items)&&journey.items.length){const j=document.createElement('div');j.className='ai-journey';const head=document.createElement('div');head.className='ai-journey-head';head.innerHTML='<small>YOUR RENTAL JOURNEY</small><b>'+esc(journey.title||'Your action plan')+'</b>'+(journey.target_date?'<span>Target: '+esc(formatDate(journey.target_date))+'</span>':'');j.appendChild(head);const list=document.createElement('div');list.className='ai-journey-list';journey.items.slice(0,7).forEach((x,i)=>{const row=document.createElement('div');row.className='ai-journey-item';row.innerHTML='<span>'+(i+1)+'</span><div><time>'+esc(formatDate(x.date))+'</time><b>'+esc(x.label||'Next step')+'</b><p>'+esc(x.detail||'')+'</p></div>';list.appendChild(row)});j.appendChild(list);d.appendChild(j)} if(resources.length){const r=document.createElement('div');r.className='ai-resources';resources.slice(0,3).forEach(x=>{if(!/^[a-z0-9-]+\.html(?:#[-a-z0-9]+)?$/i.test(x.url||''))return;const a=document.createElement('a');a.href=x.url;a.innerHTML='<small>'+esc((x.type||'resource').toUpperCase())+'</small><b>'+esc(x.label||'View resource')+' →</b>';r.appendChild(a)});d.appendChild(r)} if(suggestions.length){const s=document.createElement('div');s.className='ai-suggestions';suggestions.slice(0,3).forEach(x=>{const b=document.createElement('button');b.type='button';b.textContent=x;b.onclick=()=>send(x);s.appendChild(b)});d.appendChild(s)}
+ if(journey&&Array.isArray(journey.items)&&journey.items.length){const j=document.createElement('div');j.className='ai-journey';const head=document.createElement('div');head.className='ai-journey-head';head.innerHTML='<small>YOUR RENTAL JOURNEY</small><b>'+esc(journey.title||'Your action plan')+'</b>'+(journey.target_date?'<span>Target: '+esc(formatDate(journey.target_date))+'</span>':'');j.appendChild(head);const list=document.createElement('div');list.className='ai-journey-list';journey.items.slice(0,7).forEach((x,i)=>{const row=document.createElement('div');row.className='ai-journey-item';row.innerHTML='<span>'+(i+1)+'</span><div><time>'+esc(formatDate(x.date))+'</time><b>'+esc(x.label||'Next step')+'</b><p>'+esc(x.detail||'')+'</p></div>';list.appendChild(row)});j.appendChild(list);d.appendChild(j)} if(Array.isArray(resources)&&resources.length){const r=document.createElement('div');r.className='ai-resources';resources.slice(0,3).forEach(x=>{if(!/^[a-z0-9-]+\.html(?:#[-a-z0-9]+)?$/i.test(x.url||''))return;const a=document.createElement('a');a.href=x.url;a.innerHTML='<small>'+esc((x.type||'resource').toUpperCase())+'</small><b>'+esc(x.label||'View resource')+' →</b>';r.appendChild(a)});d.appendChild(r)} if(Array.isArray(suggestions)&&suggestions.length){const s=document.createElement('div');s.className='ai-suggestions';suggestions.slice(0,3).forEach(x=>{const b=document.createElement('button');b.type='button';b.textContent=x;b.onclick=()=>send(x);s.appendChild(b)});d.appendChild(s)}
  if(search&&search.external_search){const x=document.createElement('div');x.className='ai-external-search';x.innerHTML='<small>EXTERNAL PROPERTY SEARCH</small><b>'+esc([search.bedrooms?search.bedrooms+' BR':'',search.area||'',search.max_budget?search.max_budget+' max':''].filter(Boolean).join(' · ')||'Continue your search')+'</b><p>These portals can help discover options. Shortlist the homes you like and SGRentalBros can help verify details and coordinate the viewings for you.</p>';const links=document.createElement('div');links.className='external-search-links';[['PropertyGuru',search.propertyguru_url],['99.co',search.ninetynine_url]].forEach(([label,url])=>{if(!/^https:\/\/(www\.)?(propertyguru\.com\.sg|99\.co)\//i.test(url||''))return;const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='BROWSE '+label.toUpperCase()+' →';links.appendChild(a)});x.appendChild(links);d.appendChild(x)}
  if(viewing&&viewing.ready){const v=document.createElement('div');v.className='ai-viewing-brief';v.innerHTML='<small>YOUR VIEWING BRIEF</small><b>Ready for SGRentalBros to coordinate</b><div class="viewing-facts">'+[['Area',viewing.areas],['Home',viewing.bedrooms?viewing.bedrooms+' bedroom':''],['Budget',viewing.budget],['Move-in',viewing.move_in],['Household',viewing.household],['Preferences',viewing.preferences],['Viewing times',viewing.viewing_times]].filter(x=>x[1]).map(x=>'<span><em>'+esc(x[0])+'</em>'+esc(x[1])+'</span>').join('')+'</div><p>Send this brief to Wang. SGRentalBros can help verify shortlisted homes, coordinate the relevant parties and arrange your viewings as one point of contact.</p>';const a=document.createElement('a');a.className='mini ai-wa';a.target='_blank';a.rel='noopener';a.href=wa('Please help shortlist suitable homes and coordinate my viewings.');a.textContent='ASK SGRentalBros TO ARRANGE VIEWINGS →';v.appendChild(a);d.appendChild(v)}
  if(next&&next.type&&next.type!=='none'){const n=document.createElement('div');n.className='ai-next-step';n.innerHTML='<small>NEXT STEP</small><b>'+esc(next.title||'Keep your rental moving')+'</b><p>'+esc(next.detail||'')+'</p>';if(next.cta){const b=document.createElement('button');b.type='button';b.textContent=next.cta;b.onclick=()=>send(next.cta);n.appendChild(b)}d.appendChild(n)}
