@@ -24,7 +24,7 @@ async function send(q){
  addBubble('user',q);history.push({role:'user',content:q});input.value='';
  setBusy(true);const thinking=document.createElement('div');thinking.className='bot-bubble ai-thinking';thinking.textContent='SGRentalBros AI is working on this…';out.appendChild(thinking);
  try{
-  const r=await fetch('/api/concierge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history.slice(-MAX_HISTORY)})});
+  const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),25000);let r;try{r=await fetch('/api/concierge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history.slice(-MAX_HISTORY)}),signal:controller.signal})}finally{clearTimeout(timeout)}
   const data=await r.json();thinking.remove();
   if(!r.ok)throw new Error(data.error||'AI unavailable');
   const reply=data.reply||'Tell me a little more about what you need.';
