@@ -20,14 +20,17 @@ export default async function handler(req,res){
  if(!process.env.AI_GATEWAY_API_KEY)return res.status(503).json({error:"AI concierge is being connected. Please try again shortly."});
  try{
   const body=typeof req.body==="string"?JSON.parse(req.body):req.body||{};
-  const messages=Array.isArray(body.messages)?body.messages.slice(-20):[];
+  const rawMessages=Array.isArray(body.messages)?body.messages.slice(-20):[];
+  const messages=rawMessages.filter(m=>m&&["user","assistant"].includes(m.role)&&typeof m.content==="string"&&m.content.trim()).map(m=>({role:m.role,content:m.content.trim().slice(0,2500)}));
   if(!messages.length)return res.status(400).json({error:"No conversation supplied"});
+  if(messages.reduce((n,m)=>n+m.content.length,0)>20000)return res.status(413).json({error:"Conversation is too long. Please start a new Concierge chat."});
   const transcript=messages.map(m=>(m.role==="assistant"?"Concierge":"Visitor")+": "+String(m.content||"").slice(0,2500)).join("\n");
   const context=relevantKnowledge(messages.map(m=>m.content||"").join(" "));
   const today=new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Singapore"});
   const groundedInput="TODAY IN SINGAPORE: "+today+"\\nKNOWLEDGE (curated SGRentalBros data):\\n"+JSON.stringify(context)+"\\n\\nCONVERSATION:\\n"+transcript;
-  const r=await fetch("https://ai-gateway.vercel.sh/v1/responses",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+process.env.AI_GATEWAY_API_KEY},body:JSON.stringify({model:"openai/gpt-5.6-luna",instructions:SYSTEM,input:groundedInput,max_output_tokens:900})});
-  const data=await r.json();
+  const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),22000);let r;
+  try{r=await fetch("https://ai-gateway.vercel.sh/v1/responses",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+process.env.AI_GATEWAY_API_KEY},body:JSON.stringify({model:"openai/gpt-5.6-luna",instructions:SYSTEM,input:groundedInput,max_output_tokens:900}),signal:controller.signal})}finally{clearTimeout(timeout)}
+  let data={};try{data=await r.json()}catch{throw new Error("AI returned an invalid response")}
   if(!r.ok)throw new Error(data.error?.message||"AI request failed");
   const text=data.output_text||data.output?.flatMap(x=>x.content||[]).map(x=>x.text||"").join("")||"";
   let answer;try{answer=JSON.parse(text)}catch{answer={reply:text,stage:"discover",suggestions:[],resources:[],journey:null,property_search:null,viewing_brief:null,next_step:null,lead_summary:null,handoff:false}}
@@ -44,5 +47,5 @@ export default async function handler(req,res){
    handoff:answer.handoff===true
   };
   return res.status(200).json(safe);
- }catch(e){return res.status(500).json({error:"The concierge had trouble replying. Please try again or continue with Wang on WhatsApp."})}
+ }catch(e){const timedOut=e&&e.name==="AbortError";return res.status(timedOut?504:500).json({error:timedOut?"The concierge took too long to respond. Please try again.":"The concierge had trouble replying. Please try again or continue with Wang on WhatsApp."})}
 }
