@@ -31,7 +31,7 @@ async function send(q){
   history.push({role:'assistant',content:reply});latestLead=data.lead_summary||latestLead;latestViewing=data.viewing_brief||latestViewing;addBot(reply,data.suggestions||[],data.resources||[],data.journey||null,data.property_search||null,data.viewing_brief||null,data.next_step||null,data.lead_summary||null,!!data.handoff);
   try{localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-MAX_HISTORY)))}catch(e){}
  }catch(err){
-  thinking.remove();addFallback(err.message,q);
+  thinking.remove();addFallback(err&&err.name==='AbortError'?'The AI took longer than expected to respond.':(err.message||'The AI service is temporarily unavailable.'),q);
  }finally{requestInFlight=false;setBusy(false)}
 }
 function addBubble(role,text){
@@ -73,5 +73,5 @@ function setBusy(v){const b=form.querySelector('button');b.disabled=v;b.textCont
 function scroll(){out.scrollIntoView({behavior:'smooth',block:'nearest'})}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 
-let restored=false;try{const saved=JSON.parse(localStorage.getItem('sgrb_ai_history')||'[]');if(Array.isArray(saved)&&saved.length){saved.slice(-MAX_HISTORY).forEach(m=>{history.push(m);addBubble(m.role,m.content)});restored=true}}catch(e){}
+let restored=false;try{const saved=JSON.parse(localStorage.getItem('sgrb_ai_history')||'[]');if(Array.isArray(saved)&&saved.length){saved.slice(-MAX_HISTORY).forEach(m=>{if(!m||!['user','assistant'].includes(m.role)||typeof m.content!=='string')return;const clean={role:m.role,content:m.content.slice(0,2500)};history.push(clean);addBubble(clean.role,clean.content)});restored=history.length>0}}catch(e){}
 const starter=new URLSearchParams(location.search).get('start');if(!restored&&starter&&STARTERS[starter]){input.value=STARTERS[starter];input.focus()}
