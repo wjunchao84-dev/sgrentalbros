@@ -120,3 +120,14 @@ footer{padding-top:60px;padding-bottom:60px}
  .landlord-facts,.viewing-facts{grid-template-columns:1fr!important}
  #conciergeInput{max-width:100%;min-width:0}
 }
+
+/* Live TikTok previews */
+.tiktok-preview-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.tiktok-video{border:1px solid #ffffff20;border-radius:20px;overflow:hidden;background:#0b2139;box-shadow:0 16px 35px #00000022}
+.tiktok-video iframe{display:block;width:100%;aspect-ratio:9/16;border:0;background:#000}
+.tiktok-video>a{display:block;padding:14px 16px;color:#e3bd67;text-decoration:none;font-size:10px;font-weight:900;letter-spacing:.08em;text-align:center}
+.tiktok-video>a:hover{background:#ffffff08}
+.tiktok-profile-cta{margin-top:20px;padding:20px 22px;border:1px solid #ffffff20;border-radius:18px;display:flex;align-items:center;justify-content:space-between;gap:20px;background:#ffffff08}
+.tiktok-profile-cta div{display:flex;flex-direction:column;gap:4px}.tiktok-profile-cta b{font-size:17px}.tiktok-profile-cta span{font-size:12px;color:#b9c8d7}
+@media(max-width:1000px){.tiktok-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.tiktok-preview-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}.tiktok-video{min-width:76vw;scroll-snap-align:start}.tiktok-profile-cta{align-items:flex-start;flex-direction:column}.tiktok-profile-cta .btn{width:100%;text-align:center}}
