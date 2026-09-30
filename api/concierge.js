@@ -31,7 +31,7 @@ export default async function handler(req,res){
   const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),22000);let r;
   try{r=await fetch("https://ai-gateway.vercel.sh/v1/responses",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+process.env.AI_GATEWAY_API_KEY},body:JSON.stringify({model:"openai/gpt-5.6-luna-fast",instructions:SYSTEM,input:[{type:"message",role:"user",content:groundedInput}],reasoning:{effort:"minimal"},max_output_tokens:1800}),signal:controller.signal})}finally{clearTimeout(timeout)}
   let data={};try{data=await r.json()}catch{throw new Error("AI returned an invalid response")}
-  if(!r.ok)throw new Error(data.error?.message||"AI request failed");
+  if(!r.ok){console.error("SGRB_AI_GATEWAY_ERROR",{status:r.status,statusText:r.statusText,error:data?.error||data,requestId:r.headers.get("x-request-id")||r.headers.get("x-vercel-id")||""});throw new Error(data.error?.message||"AI Gateway request failed ("+r.status+")");}
   const text=data.output_text||data.output?.flatMap(x=>x.content||[]).map(x=>x.text||"").join("")||"";
   let answer;try{answer=JSON.parse(text)}catch{answer={reply:text,stage:"discover",suggestions:[],resources:[],journey:null,property_search:null,viewing_brief:null,next_step:null,lead_summary:null,handoff:false}}
   const safe={
@@ -47,5 +47,5 @@ export default async function handler(req,res){
    handoff:answer.handoff===true
   };
   return res.status(200).json(safe);
- }catch(e){const timedOut=e&&e.name==="AbortError";return res.status(timedOut?504:500).json({error:timedOut?"The concierge took too long to respond. Please try again.":"The concierge had trouble replying. Please try again or continue with Wang on WhatsApp."})}
+ }catch(e){console.error("SGRB_CONCIERGE_ERROR",{name:e?.name||"Error",message:e?.message||String(e)});const timedOut=e&&e.name==="AbortError";return res.status(timedOut?504:500).json({error:timedOut?"The concierge took too long to respond. Please try again.":"The concierge had trouble replying. Please try again or continue with Wang on WhatsApp."})}
 }
