@@ -135,3 +135,18 @@ footer{padding-top:60px;padding-bottom:60px}
 /* SGRentalBros brand identity layer */
 .hero-brand-panel{position:relative;isolation:isolate;overflow:hidden}.hero-brand-panel:before{content:"SGRB";position:absolute;right:-18px;bottom:-38px;font-size:118px;font-weight:950;letter-spacing:-.08em;color:#ffffff08;z-index:-1}.hero-brand-panel>img{width:min(100%,430px);height:auto;margin-bottom:20px}.brand-stamp{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;padding:7px 11px;border:1px solid #d8a43b66;border-radius:999px;color:#e3bd67;font-size:9px;font-weight:900;letter-spacing:.16em}.brand-stamp:before{content:"";width:6px;height:6px;border-radius:50%;background:#e3bd67;box-shadow:0 0 0 4px #e3bd6720}.hero-brand-panel>p{max-width:390px;margin:10px 0 20px;color:#c3d0dc;font-size:13px;line-height:1.6}.brand-panel-links{display:flex;gap:10px;flex-wrap:wrap}.brand-panel-links a{padding:10px 13px;border:1px solid #ffffff24;border-radius:10px;font-size:10px;font-weight:900;letter-spacing:.07em;text-decoration:none;color:#fff}.brand-panel-links a:first-child{background:#d8a43b;color:#07182d;border-color:#d8a43b}.brand-proof b{color:#e3bd67;letter-spacing:.04em}
 @media(max-width:700px){.hero-brand-panel>img{width:100%;max-width:390px}.hero-brand-panel:before{font-size:82px}.brand-panel-links a{flex:1;text-align:center}}
+
+/* Singapore-warm navigation layer */
+.sg-welcome{padding-top:34px;padding-bottom:34px}
+.sg-welcome-copy{max-width:720px;margin:0 auto 22px;text-align:center}
+.sg-welcome-copy h2{margin:.35rem 0 .6rem}
+.sg-welcome-copy p{margin:0;color:var(--muted,#5d6672)}
+.sg-path-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sg-path-card{display:flex;flex-direction:column;gap:6px;padding:20px;border:1px solid rgba(7,24,45,.12);border-radius:18px;background:#fff;text-decoration:none;color:inherit;box-shadow:0 8px 24px rgba(7,24,45,.06);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.sg-path-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(7,24,45,.10);border-color:#d5a536}
+.sg-path-card span{font-size:1.7rem}
+.sg-path-card strong{color:#07182d;font-size:1.05rem}
+.sg-path-card small{color:#66707b;line-height:1.4}
+.sg-local-note{margin-top:16px;padding:14px 18px;border-radius:14px;background:#fff8e8;color:#26364a;text-align:center;border:1px solid rgba(213,165,54,.24)}
+@media(max-width:800px){.sg-path-grid{grid-template-columns:1fr 1fr}.sg-welcome{padding-top:26px}.sg-path-card{padding:16px}}
+@media(max-width:480px){.sg-path-grid{grid-template-columns:1fr}.sg-path-card{display:grid;grid-template-columns:38px 1fr;column-gap:8px}.sg-path-card span{grid-row:1/3}.sg-path-card small{grid-column:2}}
