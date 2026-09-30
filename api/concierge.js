@@ -29,7 +29,7 @@ export default async function handler(req,res){
   const today=new Date().toLocaleDateString("en-CA",{timeZone:"Asia/Singapore"});
   const groundedInput="TODAY IN SINGAPORE: "+today+"\\nKNOWLEDGE (curated SGRentalBros data):\\n"+JSON.stringify(context)+"\\n\\nCONVERSATION:\\n"+transcript;
   const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),22000);let r;
-  try{r=await fetch("https://ai-gateway.vercel.sh/v1/responses",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+process.env.AI_GATEWAY_API_KEY},body:JSON.stringify({model:"openai/gpt-5.6-luna-fast",instructions:SYSTEM,input:[{type:"message",role:"user",content:groundedInput}],reasoning:{effort:"minimal"},max_output_tokens:1800}),signal:controller.signal})}finally{clearTimeout(timeout)}
+  try{r=await fetch("https://ai-gateway.vercel.sh/v1/responses",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+process.env.AI_GATEWAY_API_KEY},body:JSON.stringify({model:"openai/gpt-5.6-luna",instructions:SYSTEM,input:[{type:"message",role:"user",content:groundedInput}],reasoning:{effort:"minimal"},max_output_tokens:1800}),signal:controller.signal})}finally{clearTimeout(timeout)}
   let data={};try{data=await r.json()}catch{throw new Error("AI returned an invalid response")}
   if(!r.ok){console.error("SGRB_AI_GATEWAY_ERROR",{status:r.status,statusText:r.statusText,error:data?.error||data,requestId:r.headers.get("x-request-id")||r.headers.get("x-vercel-id")||""});throw new Error(data.error?.message||"AI Gateway request failed ("+r.status+")");}
   const text=data.output_text||data.output?.flatMap(x=>x.content||[]).map(x=>x.text||"").join("")||"";
