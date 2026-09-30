@@ -154,3 +154,21 @@ footer{padding-top:60px;padding-bottom:60px}
 /* SGRentalBros mascot */
 .brand-mascot{display:block;width:min(220px,70%);height:auto;margin:0 auto -8px;object-fit:contain;filter:drop-shadow(0 12px 18px rgba(7,24,45,.12))}
 @media(max-width:700px){.brand-mascot{width:150px;margin-bottom:-4px}}
+
+
+/* Keep the real mascot visible inside the dark hero panel */
+.hero-brand-panel .brand-mascot{
+  display:block;
+  width:210px;
+  max-width:68%;
+  height:auto;
+  margin:0 auto 14px;
+  align-self:center;
+  object-fit:contain;
+  filter:drop-shadow(0 14px 22px rgba(0,0,0,.28));
+  position:relative;
+  z-index:3;
+}
+@media(max-width:700px){
+  .hero-brand-panel .brand-mascot{width:175px;max-width:72%;margin:0 auto 12px}
+}
