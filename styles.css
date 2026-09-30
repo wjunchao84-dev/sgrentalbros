@@ -172,3 +172,71 @@ footer{padding-top:60px;padding-bottom:60px}
 @media(max-width:700px){
   .hero-brand-panel .brand-mascot{width:175px;max-width:72%;margin:0 auto 12px}
 }
+
+
+/* 2026 warm Singapore homepage hero */
+.sg-home-hero{
+  min-height:760px;
+  position:relative;
+  isolation:isolate;
+  display:grid;
+  grid-template-columns:minmax(300px,.85fr) minmax(500px,1.35fr);
+  grid-template-rows:1fr auto auto;
+  column-gap:42px;
+  align-items:center;
+  padding:88px max(5vw,40px) 28px;
+  color:#07182d;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(255,247,232,.78) 0%,rgba(255,249,238,.88) 43%,rgba(255,244,222,.78) 100%),
+    radial-gradient(circle at 78% 42%,#ffd98b 0,#ffe9bf 24%,transparent 52%),
+    linear-gradient(180deg,#b9d9f3 0%,#f8d79f 60%,#fff5e2 100%);
+}
+.sg-home-hero:before{
+  content:"";
+  position:absolute;inset:0;z-index:-2;
+  background:
+    linear-gradient(155deg,transparent 0 54%,rgba(7,24,45,.06) 54.2% 55%,transparent 55.2%),
+    radial-gradient(ellipse at 75% 74%,rgba(216,164,59,.25),transparent 38%);
+}
+.sg-home-hero:after{
+  content:"SINGAPORE  ·  HOME  ·  RENTAL  ·  MADE SIMPLE";
+  position:absolute;right:4vw;bottom:190px;z-index:-1;
+  color:rgba(7,24,45,.08);font-weight:950;letter-spacing:8px;font-size:clamp(14px,1.5vw,24px);
+}
+.sg-hero-mascot-wrap{grid-row:1/3;align-self:end;display:flex;justify-content:center;align-items:flex-end;min-width:0}
+.sg-home-hero .sg-hero-mascot{display:block;width:min(510px,44vw);max-height:560px;height:auto;object-fit:contain;filter:drop-shadow(0 24px 24px rgba(7,24,45,.18))}
+.sg-hero-content{align-self:end;max-width:800px;padding-bottom:24px}
+.sg-hero-kicker{font-size:14px;font-weight:950;letter-spacing:2.2px;color:#0c2745;margin-bottom:14px}
+.sg-home-hero h1{margin:0;color:#07182d;font-size:clamp(52px,5.7vw,88px);line-height:.95;letter-spacing:-4.5px}
+.sg-home-hero h1 em{font-family:Georgia,serif;font-style:italic;font-weight:700;color:#b47708;letter-spacing:-3px}
+.sg-home-hero h2{font-size:clamp(22px,2vw,31px);margin:24px 0 4px;color:#07182d}
+.sg-home-hero p{font-size:18px;margin:0;color:#465466;line-height:1.5}
+.sg-hero-paths{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;z-index:3;margin-top:8px}
+.sg-hero-path{min-height:145px;display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:center;padding:20px 18px;border-radius:24px;border:1px solid rgba(7,24,45,.08);box-shadow:0 18px 45px rgba(7,24,45,.12);transition:.2s ease;background:rgba(255,255,255,.92)}
+.sg-hero-path:hover{transform:translateY(-5px);box-shadow:0 22px 52px rgba(7,24,45,.17)}
+.sg-hero-path.home{background:#fff4f0}.sg-hero-path.landlord{background:#eef7ff}.sg-hero-path.question{background:#effbf5}.sg-hero-path.service{background:#fff8e9}
+.sg-path-icon{font-size:45px}.sg-hero-path strong{display:block;font-size:18px;color:#07182d;margin-bottom:6px}.sg-hero-path small{display:block;color:#566474;font-size:14px;line-height:1.35}.sg-hero-path>b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#d8a43b;color:white;font-size:20px}
+.sg-hero-proof{grid-column:1/-1;display:flex;justify-content:center;gap:0;margin-top:20px;color:#142a44;font-size:12px;letter-spacing:.5px}
+.sg-hero-proof span{padding:5px 34px;border-right:1px solid rgba(7,24,45,.18)}.sg-hero-proof span:last-child{border:0}
+@media(max-width:900px){
+ .sg-home-hero{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;padding:44px 22px 24px;text-align:center;min-height:auto}
+ .sg-hero-content{grid-row:1;padding-bottom:10px}
+ .sg-hero-mascot-wrap{grid-row:2;max-height:390px;overflow:hidden}
+ .sg-home-hero .sg-hero-mascot{width:min(390px,90vw);max-height:420px}
+ .sg-home-hero h1{font-size:clamp(45px,12vw,70px);letter-spacing:-3px}
+ .sg-hero-paths{grid-row:3;grid-template-columns:1fr 1fr;text-align:left}
+ .sg-hero-proof{grid-row:4;flex-wrap:wrap;gap:8px}.sg-hero-proof span{border:0;padding:5px 10px}
+}
+@media(max-width:560px){
+ .sg-home-hero{padding:32px 16px 22px}
+ .sg-hero-kicker{font-size:11px;letter-spacing:1.5px}
+ .sg-home-hero h1{font-size:46px;letter-spacing:-2.5px}
+ .sg-home-hero h2{font-size:21px;margin-top:15px}
+ .sg-home-hero p{font-size:15px}
+ .sg-hero-mascot-wrap{max-height:315px}.sg-home-hero .sg-hero-mascot{width:330px;max-height:350px}
+ .sg-hero-paths{grid-template-columns:1fr;gap:10px}
+ .sg-hero-path{min-height:100px;border-radius:18px;padding:14px}.sg-path-icon{font-size:35px}
+ .sg-hero-path strong{font-size:16px}.sg-hero-path small{font-size:13px}
+ .sg-hero-proof{margin-top:12px;font-size:10px}
+}
