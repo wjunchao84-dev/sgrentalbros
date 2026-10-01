@@ -173,3 +173,49 @@ footer{padding-top:60px;padding-bottom:60px}
   .hero-brand-panel .brand-mascot{width:175px;max-width:72%;margin:0 auto 12px}
 }
 
+
+/* Blue homepage refinements — preserve original branding and layout */
+.hero-banner{gap:clamp(20px,3vw,48px);grid-template-columns:minmax(0,1.2fr) minmax(290px,.7fr)}
+.hero-banner .hero-copy{min-width:0}
+.hero-banner .hero-actions{flex-wrap:wrap;align-items:center}
+.hero-banner .hero-actions .btn{display:inline-flex;justify-content:center;align-items:center;min-height:50px;line-height:1.35}
+.hero-banner .hero-actions .ghost{border-radius:30px;border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.05)}
+.hero-banner .hero-actions .ghost:hover{background:rgba(255,255,255,.14)}
+.hero-banner .hero-feature-row{grid-template-columns:repeat(5,minmax(0,1fr))}
+.hero-banner .hero-feature-row a{min-width:0}
+.hero-banner .hero-feature-row span{min-width:0;overflow-wrap:break-word}
+.hero-banner .hero-feature-row a:hover{background:rgba(255,255,255,.06)}
+.hero-brand-panel{min-width:0;align-items:center;text-align:center;justify-content:center;gap:8px;padding:28px}
+.hero-brand-panel .brand-stamp{margin-bottom:4px}
+.hero-brand-panel .brand-mascot{width:min(270px,86%);max-width:86%;margin:0 auto 6px;flex-shrink:0;filter:drop-shadow(0 15px 20px rgba(0,0,0,.25))}
+.hero-brand-panel>img:not(.brand-mascot){width:min(220px,85%);max-height:64px;margin:0 auto 6px;object-fit:contain}
+.hero-brand-panel strong{font-size:clamp(25px,2.3vw,32px)}
+.hero-brand-panel>p{margin:6px auto 12px}
+.hero-brand-panel .brand-panel-links{justify-content:center}
+.hero-brand-panel .brand-panel-links a{min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+.hero-banner a:focus-visible,.nav a:focus-visible,#menuBtn:focus-visible{outline:3px solid #f3c86b;outline-offset:4px}
+@media(min-width:901px) and (max-width:1200px){
+ .hero-banner{grid-template-columns:minmax(0,1fr) minmax(260px,.72fr);padding-left:4vw;padding-right:4vw}
+ .hero-banner .hero-feature-row{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .hero-banner .hero-feature-row a:nth-child(3){border-right:0}
+ .hero-banner h1{font-size:clamp(54px,6.3vw,76px)}
+}
+@media(max-width:900px){
+ .hero-banner{grid-template-columns:minmax(0,1fr);gap:28px}
+ .hero-brand-panel{width:min(100%,580px);margin:0 auto;min-height:0;padding:24px}
+ .hero-brand-panel .brand-mascot{width:min(255px,76%);max-width:76%}
+ .hero-banner .hero-feature-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .hero-banner{padding:38px 20px;gap:22px}
+ .hero-banner h1{font-size:clamp(43px,12vw,58px);letter-spacing:-2.5px}
+ .hero-banner .hero-actions{margin-top:24px}
+ .hero-banner .hero-actions .btn{width:100%;white-space:normal;text-align:center}
+ .hero-banner .hero-feature-row{margin:24px 0 12px}
+ .hero-banner .hero-feature-row a{padding:13px 8px}
+ .hero-banner .hero-feature-row a:last-child{grid-column:span 2}
+ .hero-brand-panel .brand-mascot{width:min(230px,72%);max-width:72%}
+ .hero-brand-panel strong{font-size:25px}
+ .hero-brand-panel .brand-panel-links{width:100%}
+ .hero-brand-panel .brand-panel-links a{flex:1 1 130px}
+}
