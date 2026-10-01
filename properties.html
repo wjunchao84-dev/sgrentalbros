@@ -7,4 +7,26 @@
 </div>
 </section>
 <section class="portal-cta"><span>CAN'T FIND THE RIGHT ONE?</span><h2>Tell me what you're looking for.</h2><p>I can help shortlist options beyond the homes shown here.</p><a class="btn primary" href="rental-concierge.html?start=find-home">START AI RENTAL SEARCH →</a></section></main>
-<footer><a class="brand brand-logo footer-logo" href="index.html"><img src="brand-logo.svg" alt="SGRentalbros"></a><p>Singapore's one-stop rental hub • homes • advice • services • deals</p><p class="legal">Wang JC · Huttons Asia Pte Ltd · CEA R008015F</p></footer><script src="app.js"></script></body></html>
+<footer><a class="brand brand-logo footer-logo" href="index.html"><img src="brand-logo.svg" alt="SGRentalbros"></a><p>Singapore's one-stop rental hub • homes • advice • services • deals</p><p class="legal">Wang JC · Huttons Asia Pte Ltd · CEA R008015F</p></footer><script>
+(function(){
+  const query=new URLSearchParams(location.search).get('q');
+  if(!query)return;
+  const term=query.trim().toLowerCase();
+  if(!term)return;
+  const cards=[...document.querySelectorAll('#rentProperties .portal-card')];
+  let shown=0;
+  cards.forEach(card=>{
+    const match=card.textContent.toLowerCase().includes(term);
+    card.hidden=!match;
+    if(match)shown++;
+  });
+  const counter=document.getElementById('propertyCount');
+  if(counter)counter.textContent=shown+' listed home'+(shown===1?'':'s')+' matching “'+query+'”';
+  if(!shown){
+    const msg=document.createElement('div');
+    msg.className='sg-search-empty';
+    msg.innerHTML='<h2>No current listings matching your search.</h2><p>Our own listings are limited. The AI Concierge can help you plan a broader Singapore rental search.</p><a class="btn primary" href="rental-concierge.html?start=find-home">ASK THE AI CONCIERGE →</a>';
+    document.getElementById('rentProperties').after(msg);
+  }
+})();
+</script><script src="app.js"></script></body></html>
