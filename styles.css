@@ -235,3 +235,13 @@ footer{padding-top:60px;padding-bottom:60px}
  .sg-homepage .hero-banner h1{font-size:clamp(42px,11.4vw,56px);letter-spacing:-.062em;line-height:1.05}
  .sg-homepage .section h2{letter-spacing:-.04em}
 }
+
+/* Direct Wang WhatsApp contact - homepage and concierge */
+.sg-direct-contact{position:fixed;right:20px;bottom:20px;z-index:45;display:inline-flex;align-items:center;gap:10px;background:#168b50;color:#fff;border:1px solid #ffffff40;border-radius:999px;padding:11px 17px 11px 11px;box-shadow:0 8px 25px #07182d50;font-size:13px;font-weight:800;letter-spacing:.01em;line-height:1.2;transition:transform .18s ease,box-shadow .18s ease}
+.sg-direct-contact:hover{transform:translateY(-2px);box-shadow:0 12px 28px #07182d60;background:#117843;color:#fff}
+.sg-direct-contact:focus-visible,.ai-human-help a:focus-visible{outline:3px solid #f3c86b;outline-offset:3px}
+.sg-contact-symbol{width:30px;height:30px;border-radius:50%;background:#ffffff20;display:grid;place-items:center;font-size:21px;font-weight:700}
+.ai-human-help{margin:12px 16px 4px;padding:13px 15px;background:#eaf8f0;border:1px solid #c8e9d4;border-radius:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:#163a2a}
+.ai-human-help span{font-weight:650}
+.ai-human-help a{font-weight:800;color:#08643c;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:560px){.sg-direct-contact{right:12px;bottom:12px;padding:9px 12px 9px 9px;font-size:12px;gap:7px}.sg-contact-symbol{width:26px;height:26px;font-size:18px}.ai-human-help{margin:10px 8px 4px}}
