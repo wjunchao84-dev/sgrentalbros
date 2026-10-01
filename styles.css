@@ -219,3 +219,19 @@ footer{padding-top:60px;padding-bottom:60px}
  .hero-brand-panel .brand-panel-links{width:100%}
  .hero-brand-panel .brand-panel-links a{flex:1 1 130px}
 }
+
+/* Refined homepage typography — retain original navy and gold design */
+.sg-homepage{font-family:"DM Sans",Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-optical-sizing:auto;-webkit-font-smoothing:antialiased}
+.sg-homepage h1,.sg-homepage h2,.sg-homepage h3,.sg-homepage .hero-brand-panel strong,.sg-homepage .section-head h2{font-family:"Plus Jakarta Sans","DM Sans",ui-sans-serif,system-ui,sans-serif;font-optical-sizing:auto;font-weight:800}
+.sg-homepage .hero-banner h1{font-weight:800;letter-spacing:-.065em;line-height:1.01}
+.sg-homepage .hero-banner .hero-lead{font-weight:400;line-height:1.65;letter-spacing:-.012em}
+.sg-homepage .eyebrow,.sg-homepage .kicker,.sg-homepage .brand-stamp{font-family:"DM Sans",sans-serif;letter-spacing:.15em;font-weight:800}
+.sg-homepage .nav nav a{font-family:"DM Sans",sans-serif;font-weight:700;letter-spacing:-.01em}
+.sg-homepage .btn,.sg-homepage .brand-panel-links a{font-family:"DM Sans",sans-serif;font-weight:800;letter-spacing:.025em}
+.sg-homepage .hero-feature-row span,.sg-homepage .hero-brand-panel p{font-family:"DM Sans",sans-serif}
+.sg-homepage .section h2{letter-spacing:-.045em;line-height:1.12}
+.sg-homepage .hero-brand-panel strong{letter-spacing:-.045em;line-height:1.18}
+@media(max-width:560px){
+ .sg-homepage .hero-banner h1{font-size:clamp(42px,11.4vw,56px);letter-spacing:-.062em;line-height:1.05}
+ .sg-homepage .section h2{letter-spacing:-.04em}
+}
