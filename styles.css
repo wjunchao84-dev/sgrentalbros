@@ -276,3 +276,10 @@ footer{padding-top:60px;padding-bottom:60px}
 @media(max-width:560px){.sg-night-hero{padding:32px 14px 20px}.sg-night-kicker{font-size:10px;letter-spacing:1.7px}.sg-night-hero .sg-night-copy h1{font-size:clamp(40px,10.5vw,57px);letter-spacing:-2.7px}.sg-night-copy>p{font-size:15px}.sg-night-search button{padding:13px 17px}.sg-night-search input{font-size:13px;padding:12px}.sg-night-tiles{grid-template-columns:1fr;gap:10px}.sg-night-tile{min-height:95px;grid-template-columns:48px 1fr 30px;padding:12px 15px;border-radius:18px}.sg-night-tile-icon{font-size:34px}.sg-night-tile strong{font-size:17px;margin-bottom:3px}.sg-night-tile small{font-size:12px}.sg-night-bottom{font-size:10px;padding:10px}.sg-night-bottom span{padding:6px 10px;border:0}}
 
 #rentProperties .portal-card[hidden]{display:none!important}.sg-search-empty{margin:24px 0;padding:28px;border-radius:18px;border:1px solid #dce4ec;background:#f7faff}.sg-search-empty h2{margin:0 0 8px}.sg-search-empty p{margin:0 0 20px;line-height:1.6}
+
+/* Header action and transparent character refinement */
+.sg-homepage .nav .sg-nav-contact{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;border-radius:100px;padding:11px 17px;background:linear-gradient(135deg,#f4c765,#b57b12);color:#07182d!important;font-size:12px;font-weight:900;box-shadow:0 5px 16px #0003}
+.sg-homepage .nav .sg-nav-contact:hover{background:#ffdb81;color:#07182d!important}
+.sg-night-character img{background:transparent;filter:drop-shadow(0 17px 25px rgba(0,0,0,.26))}
+.sg-night-tile:focus-visible,.sg-night-search button:focus-visible,.sg-night-popular a:focus-visible,.sg-nav-contact:focus-visible{outline:3px solid #f5c966;outline-offset:3px}
+@media(max-width:900px){.sg-homepage .nav #navLinks.open .sg-nav-contact{display:flex;margin:8px 0;text-align:center}}
