@@ -74,4 +74,4 @@ function scroll(){out.scrollIntoView({behavior:'smooth',block:'nearest'})}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 
 let restored=false;try{const saved=JSON.parse(localStorage.getItem('sgrb_ai_history')||'[]');if(Array.isArray(saved)&&saved.length){saved.slice(-MAX_HISTORY).forEach(m=>{if(!m||!['user','assistant'].includes(m.role)||typeof m.content!=='string')return;const clean={role:m.role,content:m.content.slice(0,2500)};history.push(clean);addBubble(clean.role,clean.content)});restored=history.length>0}}catch(e){}
-const starter=new URLSearchParams(location.search).get('start');if(!restored&&starter&&STARTERS[starter]){input.value=STARTERS[starter];input.focus()}
+const entryParams=new URLSearchParams(location.search);const area=entryParams.get('area');const starter=entryParams.get('start');if(area&&area.trim()){input.value='I am looking for a rental home around '+area.trim().slice(0,100)+'. Please help me shortlist options and plan viewings.';input.focus()}else if(!restored&&starter&&STARTERS[starter]){input.value=STARTERS[starter];input.focus()}
