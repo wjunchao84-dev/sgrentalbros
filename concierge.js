@@ -17,6 +17,10 @@ const STARTERS={
 
 document.querySelectorAll('[data-text]').forEach(b=>b.onclick=()=>send(b.dataset.text));
 form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(q)send(q)});
+// Share a current, user-approved AI brief via WhatsApp; never send chat content automatically.
+const aiContactWang=document.getElementById('aiContactWang');
+if(aiContactWang){aiContactWang.addEventListener('click',()=>{aiContactWang.href=wa('I would like Wang JC to contact me personally.');});}
+
 
 async function send(q){
  if(requestInFlight)return;
@@ -62,7 +66,7 @@ function wa(extra=''){
   if(latestViewing&&latestViewing.ready){const v=latestViewing;const vr=[['Viewing area',v.areas],['Viewing preferences',v.preferences],['Preferred viewing times',v.viewing_times]].filter(x=>x[1]);if(vr.length)body+='\n\nVIEWING BRIEF\n'+vr.map(x=>x[0]+': '+x[1]).join('\n');}
  }else{
   const visitor=history.filter(m=>m.role==='user').map(m=>m.content).join('\n- ');
-  body+='Visitor request:\n- '+visitor;
+  body+='Visitor request:\n- '+(visitor||'I would like to speak with Wang JC about a property enquiry.');
  }
  if(extra)body+='\n\n'+extra;
  body+='\n\nPlease help me with the next steps.';
