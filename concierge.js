@@ -4,6 +4,7 @@ const form=document.getElementById('conciergeForm');
 const history=[];
 const MAX_HISTORY=20;
 const WA='6590091649';
+const aiNewChat=document.getElementById('aiNewChat');
 let latestLead=null;
 let latestViewing=null;
 let requestInFlight=false;
@@ -15,6 +16,14 @@ const STARTERS={
  'landlord':'I own a property and want help reviewing the rental, preparing it for market and finding my next tenant.'
 };
 
+// Allow visitors to clear locally saved chat history and begin a separate enquiry.
+if(aiNewChat){aiNewChat.addEventListener('click',()=>{
+ if(requestInFlight)return;
+ if(history.length&&!window.confirm('Start a new chat? This will clear your previous AI conversation from this browser.'))return;
+ history.length=0;latestLead=null;latestViewing=null;out.replaceChildren();input.value='';
+ try{localStorage.removeItem('sgrb_ai_history')}catch(e){}
+ input.focus();
+});}
 document.querySelectorAll('[data-text]').forEach(b=>b.onclick=()=>send(b.dataset.text));
 form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(q)send(q)});
 // Share a current, user-approved AI brief via WhatsApp; never send chat content automatically.
@@ -73,7 +82,7 @@ function wa(extra=''){
  return 'https://wa.me/'+WA+'?text='+encodeURIComponent(body);
 }
 function formatDate(s){if(!/^\d{4}-\d{2}-\d{2}$/.test(String(s||'')))return s||'';const d=new Date(s+'T12:00:00+08:00');return new Intl.DateTimeFormat('en-SG',{day:'numeric',month:'short',year:'numeric'}).format(d)}
-function setBusy(v){const b=form.querySelector('button');b.disabled=v;b.textContent=v?'THINKING…':'SEND →';input.disabled=v}
+function setBusy(v){const b=form.querySelector('button');b.disabled=v;b.textContent=v?'THINKING…':'SEND →';input.disabled=v;if(aiNewChat)aiNewChat.disabled=v}
 function scroll(){out.scrollIntoView({behavior:'smooth',block:'nearest'})}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 
