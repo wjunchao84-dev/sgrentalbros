@@ -283,3 +283,11 @@ footer{padding-top:60px;padding-bottom:60px}
 .sg-night-character img{background:transparent;filter:drop-shadow(0 17px 25px rgba(0,0,0,.26))}
 .sg-night-tile:focus-visible,.sg-night-search button:focus-visible,.sg-night-popular a:focus-visible,.sg-nav-contact:focus-visible{outline:3px solid #f5c966;outline-offset:3px}
 @media(max-width:900px){.sg-homepage .nav #navLinks.open .sg-nav-contact{display:flex;margin:8px 0;text-align:center}}
+
+/* AI-to-human handover: explain the optional WhatsApp brief clearly */
+.ai-human-help-copy{display:flex;flex-direction:column;gap:4px;flex:1 1 230px}
+.ai-human-help-copy strong{font-size:13px;color:#163a2a}
+.ai-human-help-copy small{font-size:12px;line-height:1.45;color:#446558;font-weight:500}
+.ai-human-help a{display:inline-flex;align-items:center;justify-content:center;background:#168b50;color:#fff;text-decoration:none;border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.35}
+.ai-human-help a:hover{background:#117843;color:#fff}
+@media(max-width:560px){.ai-human-help a{width:100%}}
