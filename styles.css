@@ -291,3 +291,13 @@ footer{padding-top:60px;padding-bottom:60px}
 .ai-human-help a{display:inline-flex;align-items:center;justify-content:center;background:#168b50;color:#fff;text-decoration:none;border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.35}
 .ai-human-help a:hover{background:#117843;color:#fff}
 @media(max-width:560px){.ai-human-help a{width:100%}}
+
+/* Concierge: fresh conversation control and transparent local-history notice */
+.ai-shell .ai-head{display:flex;align-items:center;gap:12px}
+.ai-shell .ai-head>div{flex:1;min-width:0}
+.ai-shell .ai-new-chat{margin-left:auto;flex-shrink:0;border:1px solid #dce4ec;background:#fff;color:#0c2745;border-radius:8px;padding:9px 11px;font:700 12px/1.2 inherit;cursor:pointer}
+.ai-shell .ai-new-chat:hover{background:#f0f5fa;border-color:#b5c9db}
+.ai-shell .ai-new-chat:focus-visible{outline:3px solid #d8a43b;outline-offset:2px}
+.ai-shell .ai-new-chat:disabled{opacity:.5;cursor:wait}
+.ai-shell .ai-storage-note{font-size:11px;line-height:1.5;color:#687789;margin:10px 16px 0}
+@media(max-width:560px){.ai-shell .ai-new-chat{padding:8px;font-size:11px}.ai-shell .ai-head>div b{font-size:12px}.ai-shell .ai-storage-note{margin:9px 8px 0}}
