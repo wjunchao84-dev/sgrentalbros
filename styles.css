@@ -295,7 +295,7 @@ footer{padding-top:60px;padding-bottom:60px}
 /* Concierge: fresh conversation control and transparent local-history notice */
 .ai-shell .ai-head{display:flex;align-items:center;gap:12px}
 .ai-shell .ai-head>div{flex:1;min-width:0}
-.ai-shell .ai-new-chat{margin-left:auto;flex-shrink:0;border:1px solid #dce4ec;background:#fff;color:#0c2745;border-radius:8px;padding:9px 11px;font:700 12px/1.2 inherit;cursor:pointer}
+.ai-shell .ai-new-chat{margin-left:auto;flex-shrink:0;border:1px solid #dce4ec;background:#fff;color:#0c2745;border-radius:8px;padding:9px 11px;font-family:inherit;font-size:12px;font-weight:700;line-height:1.2;cursor:pointer}
 .ai-shell .ai-new-chat:hover{background:#f0f5fa;border-color:#b5c9db}
 .ai-shell .ai-new-chat:focus-visible{outline:3px solid #d8a43b;outline-offset:2px}
 .ai-shell .ai-new-chat:disabled{opacity:.5;cursor:wait}
