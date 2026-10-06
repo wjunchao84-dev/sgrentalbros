@@ -21,7 +21,6 @@ const INTERNAL_RESOURCE_URLS=new Set([
  ...SGRB_KNOWLEDGE.guides.map(x=>x[1]),
  ...SGRB_KNOWLEDGE.services.map(x=>x[1])
 ]);
-const KNOWN_RENTS=new Set(SGRB_KNOWLEDGE.properties.map(x=>String(x.rent)));
 function cleanResources(items){
  return (Array.isArray(items)?items:[]).filter(x=>x&&typeof x==="object"&&INTERNAL_RESOURCE_URLS.has(String(x.url||""))).slice(0,3).map(x=>({
   label:String(x.label||"View resource").slice(0,100),
@@ -45,12 +44,18 @@ function cleanPropertySearch(x){
 function moneyValues(text){
  const out=[];for(const m of String(text||"").matchAll(/(?:S[$]|SGD *|[$]) *([0-9][0-9,.]*)(k)?/gi)){let v=Number(m[1].replace(/,/g,""));if(m[2])v*=1000;if(Number.isFinite(v))out.push(String(Math.round(v)))}return out;
 }
+function supportedMoney(messages){
+ const supported=new Set(messages.flatMap(m=>moneyValues(m.content)));
+ const userText=messages.filter(m=>m.role==="user").map(m=>m.content).join(" ").toLowerCase();
+ SGRB_KNOWLEDGE.properties.forEach(p=>{if(userText.includes(String(p.name||"").toLowerCase()))supported.add(String(p.rent));});
+ return supported;
+}
 function guardGrounding(answer,messages,context){
  const latest=[...messages].reverse().find(m=>m.role==="user")?.content||"";
  let reply=typeof answer.reply==="string"&&answer.reply.trim()?answer.reply.trim():"Tell me a little more about what you need.";
  const valuationIntent=/rental valuation|rental value|market rent|achievable rent|how much.{0,35}rent|rent.{0,35}how much|what.{0,25}rent|expected rent/i.test(latest);
  if(valuationIntent){
-  const allowed=new Set([...messages.flatMap(m=>moneyValues(m.content)),...KNOWN_RENTS]);
+  const allowed=supportedMoney(messages);
   const invented=moneyValues(reply).some(v=>!allowed.has(v));
   if(invented)reply="I can help organise the rental assessment, but I should not quote an achievable rent without suitable current evidence for the exact unit. Wang JC can review the property details, condition, timing and relevant market context before giving you a rental assessment.";
  }
@@ -65,7 +70,7 @@ function cleanLeadSummary(x,messages){
  if(!x||typeof x!=="object")return null;
  const copy={...x};
  if(copy.expected_rent){
-  const supported=new Set([...messages.flatMap(m=>moneyValues(m.content)),...KNOWN_RENTS]);
+  const supported=supportedMoney(messages);
   const vals=moneyValues(copy.expected_rent);
   if(vals.some(v=>!supported.has(v)))copy.expected_rent="";
  }
