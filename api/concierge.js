@@ -15,6 +15,63 @@ Return ONLY valid JSON in this exact shape:
 {"reply":"your conversational response","stage":"discover|plan|recommend|handoff","suggestions":["short action 1","short action 2"],"resources":[{"label":"resource name","url":"relative-url.html","type":"property|guide|service"}],"journey":{"title":"short plan title","target_date":"YYYY-MM-DD or empty","items":[{"date":"YYYY-MM-DD","label":"milestone","detail":"short practical action"}]},"property_search":{"area":"","bedrooms":"","max_budget":"","move_in":"","property_type":"","external_search":false,"propertyguru_url":"","ninetynine_url":""},"viewing_brief":{"ready":false,"areas":"","bedrooms":"","budget":"","move_in":"","household":"","preferences":"","viewing_times":""},"next_step":{"type":"none|viewing|offer|move-in|service","title":"","detail":"","cta":""},"lead_summary":{"persona":"tenant|landlord|buyer|service-user|unknown","need":"","area":"","property":"","budget":"","bedrooms":"","target_date":"","household":"","services":[],"issue":"","help_needed":"","property_type":"","size":"","availability":"","furnishing":"","expected_rent":"","unit_highlights":"","marketing_status":""},"handoff":false}
 Return journey as null unless a target move-in, move-out, lease-end or other useful target date is known. When journey is present, use 3-7 chronological dated milestones and make the final milestone the target event. Only put a resource in resources if its exact URL appears in the supplied KNOWLEDGE. Prefer 0-3 highly relevant resources, not a long list. Never turn an official-source URL into a resources card because resources are only SGRentalBros internal pages. For common contractual topics such as deposits, minor repairs, aircon, cleaning, diplomatic clauses and early termination, explain the framework and ask for the relevant tenancy clause when the answer depends on wording rather than pretending there is one universal Singapore rule. Return lead_summary as null until enough facts exist for a useful human handoff. Never invent missing lead details; use blank strings or empty arrays. Set handoff true only when personal help from Wang is appropriate. Do not include markdown code fences.`;
 
+
+const INTERNAL_RESOURCE_URLS=new Set([
+ ...SGRB_KNOWLEDGE.properties.map(x=>x.url),
+ ...SGRB_KNOWLEDGE.guides.map(x=>x[1]),
+ ...SGRB_KNOWLEDGE.services.map(x=>x[1])
+]);
+const KNOWN_RENTS=new Set(SGRB_KNOWLEDGE.properties.map(x=>String(x.rent)));
+function cleanResources(items){
+ return (Array.isArray(items)?items:[]).filter(x=>x&&typeof x==="object"&&INTERNAL_RESOURCE_URLS.has(String(x.url||""))).slice(0,3).map(x=>({
+  label:String(x.label||"View resource").slice(0,100),
+  url:String(x.url),
+  type:["property","guide","service"].includes(x.type)?x.type:"guide"
+ }));
+}
+function cleanPropertySearch(x){
+ if(!x||typeof x!=="object")return null;
+ return {
+  area:typeof x.area==="string"?x.area.slice(0,120):"",
+  bedrooms:typeof x.bedrooms==="string"?x.bedrooms.slice(0,40):"",
+  max_budget:typeof x.max_budget==="string"?x.max_budget.slice(0,60):"",
+  move_in:typeof x.move_in==="string"?x.move_in.slice(0,60):"",
+  property_type:typeof x.property_type==="string"?x.property_type.slice(0,80):"",
+  external_search:x.external_search===true,
+  propertyguru_url:"https://www.propertyguru.com.sg/property-for-rent",
+  ninetynine_url:"https://www.99.co/singapore/rent"
+ };
+}
+function moneyValues(text){
+ const out=[];for(const m of String(text||"").matchAll(/(?:S\\$|SGD\\s*|\\$)\\s*([0-9][0-9,.]*)(k)?/gi)){let v=Number(m[1].replace(/,/g,""));if(m[2])v*=1000;if(Number.isFinite(v))out.push(String(Math.round(v)))}return out;
+}
+function guardGrounding(answer,messages,context){
+ const latest=[...messages].reverse().find(m=>m.role==="user")?.content||"";
+ let reply=typeof answer.reply==="string"&&answer.reply.trim()?answer.reply.trim():"Tell me a little more about what you need.";
+ const valuationIntent=/rental valuation|rental value|market rent|achievable rent|how much.{0,35}rent|rent.{0,35}how much|what.{0,25}rent|expected rent/i.test(latest);
+ if(valuationIntent){
+  const allowed=new Set([...messages.flatMap(m=>moneyValues(m.content)),...KNOWN_RENTS]);
+  const invented=moneyValues(reply).some(v=>!allowed.has(v));
+  if(invented)reply="I can help organise the rental assessment, but I should not quote an achievable rent without suitable current evidence for the exact unit. Wang JC can review the property details, condition, timing and relevant market context before giving you a rental assessment.";
+ }
+ const liveIntent=/live (?:listing|inventory)|latest (?:listing|availability)|currently available|what(?:'s| is) available|check availability|find (?:me )?.{0,30}(?:home|unit|property)/i.test(latest);
+ const external=answer.property_search&&answer.property_search.external_search===true;
+ if((liveIntent||external)&&!/availability (?:and )?details (?:need|should|must|are) (?:to be )?verified|cannot verify live|can't verify live/i.test(reply)){
+  reply+=" External portal listings are discovery options only; availability and listing details still need to be verified before any viewing or decision.";
+ }
+ return reply;
+}
+function cleanLeadSummary(x,messages){
+ if(!x||typeof x!=="object")return null;
+ const copy={...x};
+ if(copy.expected_rent){
+  const supported=new Set([...messages.flatMap(m=>moneyValues(m.content)),...KNOWN_RENTS]);
+  const vals=moneyValues(copy.expected_rent);
+  if(vals.some(v=>!supported.has(v)))copy.expected_rent="";
+ }
+ return copy;
+}
+
 export default async function handler(req,res){
  if(req.method!=="POST")return res.status(405).json({error:"Method not allowed"});
  if(!process.env.AI_GATEWAY_API_KEY)return res.status(503).json({error:"AI concierge is being connected. Please try again shortly."});
@@ -35,15 +92,15 @@ export default async function handler(req,res){
   const text=data.output_text||data.output?.flatMap(x=>x.content||[]).map(x=>x.text||"").join("")||"";
   let answer;try{answer=JSON.parse(text)}catch{answer={reply:text,stage:"discover",suggestions:[],resources:[],journey:null,property_search:null,viewing_brief:null,next_step:null,lead_summary:null,handoff:false}}
   const safe={
-   reply:typeof answer.reply==="string"&&answer.reply.trim()?answer.reply.trim():"Tell me a little more about what you need.",
+   reply:guardGrounding(answer,messages,context),
    stage:["discover","plan","recommend","handoff"].includes(answer.stage)?answer.stage:"discover",
    suggestions:Array.isArray(answer.suggestions)?answer.suggestions.filter(x=>typeof x==="string").slice(0,3):[],
-   resources:Array.isArray(answer.resources)?answer.resources.filter(x=>x&&typeof x==="object").slice(0,3):[],
+   resources:cleanResources(answer.resources),
    journey:answer.journey&&typeof answer.journey==="object"?answer.journey:null,
-   property_search:answer.property_search&&typeof answer.property_search==="object"?answer.property_search:null,
+   property_search:cleanPropertySearch(answer.property_search),
    viewing_brief:answer.viewing_brief&&typeof answer.viewing_brief==="object"?answer.viewing_brief:null,
    next_step:answer.next_step&&typeof answer.next_step==="object"?answer.next_step:null,
-   lead_summary:answer.lead_summary&&typeof answer.lead_summary==="object"?answer.lead_summary:null,
+   lead_summary:cleanLeadSummary(answer.lead_summary,messages),
    handoff:answer.handoff===true
   };
   return res.status(200).json(safe);
