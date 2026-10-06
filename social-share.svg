@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07182d"/><stop offset="1" stop-color="#0f3760"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e8c97a"/><stop offset="1" stop-color="#f4dda0"/></linearGradient>
+</defs>
+<rect width="1200" height="630" rx="28" fill="url(#bg)"/>
+<circle cx="1040" cy="120" r="220" fill="#ffffff" opacity=".035"/>
+<circle cx="1080" cy="170" r="130" fill="#e8c97a" opacity=".06"/>
+<text x="88" y="118" fill="#ffffff" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="800">SGRentalBros</text>
+<rect x="88" y="145" width="172" height="6" rx="3" fill="url(#gold)"/>
+<text x="88" y="260" fill="#ffffff" font-family="Arial,Helvetica,sans-serif" font-size="72" font-weight="800">Rent better.</text>
+<text x="88" y="338" fill="#e8c97a" font-family="Arial,Helvetica,sans-serif" font-size="72" font-weight="800">Live brighter.</text>
+<text x="88" y="405" fill="#d7e1eb" font-family="Arial,Helvetica,sans-serif" font-size="30">Singapore’s one-stop rental hub</text>
+<g transform="translate(88 475)">
+  <rect width="214" height="72" rx="18" fill="#fff" opacity=".10"/><text x="24" y="44" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700">Find a home</text>
+  <rect x="230" width="214" height="72" rx="18" fill="#fff" opacity=".10"/><text x="254" y="44" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700">Landlord help</text>
+  <rect x="460" width="214" height="72" rx="18" fill="#fff" opacity=".10"/><text x="484" y="44" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700">Home services</text>
+</g>
+<g opacity=".22" fill="#ffffff">
+  <rect x="820" y="250" width="58" height="230"/><rect x="890" y="200" width="72" height="280"/><rect x="974" y="290" width="54" height="190"/><rect x="1040" y="230" width="84" height="250"/>
+  <rect x="790" y="480" width="370" height="5"/>
+</g>
+<text x="1120" y="575" text-anchor="end" fill="#d7e1eb" font-family="Arial,Helvetica,sans-serif" font-size="22">sgrentalbros.sg</text>
+</svg>
