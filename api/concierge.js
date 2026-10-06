@@ -43,7 +43,7 @@ function cleanPropertySearch(x){
  };
 }
 function moneyValues(text){
- const out=[];for(const m of String(text||"").matchAll(/(?:S\\$|SGD\\s*|\\$)\\s*([0-9][0-9,.]*)(k)?/gi)){let v=Number(m[1].replace(/,/g,""));if(m[2])v*=1000;if(Number.isFinite(v))out.push(String(Math.round(v)))}return out;
+ const out=[];for(const m of String(text||"").matchAll(/(?:S[$]|SGD *|[$]) *([0-9][0-9,.]*)(k)?/gi)){let v=Number(m[1].replace(/,/g,""));if(m[2])v*=1000;if(Number.isFinite(v))out.push(String(Math.round(v)))}return out;
 }
 function guardGrounding(answer,messages,context){
  const latest=[...messages].reverse().find(m=>m.role==="user")?.content||"";
