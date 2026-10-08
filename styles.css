@@ -301,3 +301,39 @@ footer{padding-top:60px;padding-bottom:60px}
 .ai-shell .ai-new-chat:disabled{opacity:.5;cursor:wait}
 .ai-shell .ai-storage-note{font-size:11px;line-height:1.5;color:#687789;margin:10px 16px 0}
 @media(max-width:560px){.ai-shell .ai-new-chat{padding:8px;font-size:11px}.ai-shell .ai-head>div b{font-size:12px}.ai-shell .ai-storage-note{margin:9px 8px 0}}
+
+
+/* UX: Keep navigation visible and usable on small screens for interior pages
+   that have a simple <nav> rather than the homepage's #navLinks toggle. */
+@media (max-width:900px) {
+  .nav:has(> nav:not(#navLinks)) {
+    height:auto;
+    min-height:72px;
+    flex-wrap:wrap;
+    padding:8px 5vw 0;
+    align-content:center;
+  }
+  .nav > nav:not(#navLinks) {
+    display:flex;
+    position:static;
+    flex:0 0 calc(100% + 10vw);
+    flex-direction:row;
+    align-items:center;
+    gap:20px;
+    margin:8px -5vw 0;
+    padding:0 5vw 8px;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+    white-space:nowrap;
+    background:transparent;
+  }
+  .nav > nav:not(#navLinks) a {
+    display:inline-flex;
+    align-items:center;
+    flex:0 0 auto;
+    min-height:44px;
+    padding:8px 0;
+  }
+}
