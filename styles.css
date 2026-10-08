@@ -337,3 +337,17 @@ footer{padding-top:60px;padding-bottom:60px}
     padding:8px 0;
   }
 }
+
+
+/* Homepage UX: clear audience pathways while preserving the approved hero layout. */
+.sg-night-tiles-intro{grid-column:1/-1;margin:0 0 2px;color:#fff;font-weight:800;font-size:clamp(15px,2vw,19px);letter-spacing:.01em}
+.sg-night-tile:focus-visible,.sg-sales-paths a:focus-visible{outline:3px solid #f3c86b;outline-offset:4px}
+#sales,#saleListings{scroll-margin-top:110px}
+.sg-sales-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:-14px 0 28px}
+.sg-sales-paths a{display:flex;flex-direction:column;gap:9px;padding:20px 22px;border:1px solid #dce4ec;border-radius:16px;background:#fff;box-shadow:0 8px 25px rgba(7,24,45,.05);transition:border-color .2s,transform .2s}
+.sg-sales-paths a:hover{border-color:#d8a43b;transform:translateY(-2px)}
+.sg-sales-paths strong{font-size:17px;color:#0b1726}
+.sg-sales-paths span{font-size:14px;line-height:1.5;color:#586b80}
+.sg-sales-paths b{color:#9c6c14}
+@media(max-width:600px){.sg-night-tiles-intro{text-align:center;margin:3px 0 0}.sg-sales-paths{grid-template-columns:1fr;margin:0 0 22px}.sg-sales-paths a{min-height:85px}}
+@media(prefers-reduced-motion:reduce){.sg-sales-paths a{transition:none}}
