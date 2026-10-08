@@ -351,3 +351,16 @@ footer{padding-top:60px;padding-bottom:60px}
 .sg-sales-paths b{color:#9c6c14}
 @media(max-width:600px){.sg-night-tiles-intro{text-align:center;margin:3px 0 0}.sg-sales-paths{grid-template-columns:1fr;margin:0 0 22px}.sg-sales-paths a{min-height:85px}}
 @media(prefers-reduced-motion:reduce){.sg-sales-paths a{transition:none}}
+
+/* UX: Clear search scope and make rental searches easy to revise. */
+.sg-night-copy .sg-search-hint{font-size:12px;line-height:1.55;color:#d4e1ed;margin:8px 0 0;max-width:590px}
+.sg-property-search{margin:0 0 22px;padding:20px;border:1px solid #dce4ec;border-radius:14px;background:#fff;box-shadow:0 8px 24px rgba(7,24,45,.04)}
+.sg-property-search label{display:block;font-weight:800;font-size:14px;margin-bottom:10px}
+.sg-property-search-row{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+.sg-property-search-row input{flex:1 1 230px;min-width:0;min-height:46px;padding:12px 14px;border:1px solid #a8b7c7;border-radius:8px;font:inherit;font-size:15px}
+.sg-property-search-row button{min-height:46px;border:0;border-radius:8px;background:#d8a43b;color:#07182d;font-weight:800;padding:0 18px;cursor:pointer}
+.sg-property-search-row a{min-height:46px;display:inline-flex;align-items:center;font-weight:800;font-size:12px;padding:0 10px;color:#264c73}
+.sg-property-search small{display:block;color:#526477;line-height:1.5;margin-top:9px}
+.sg-property-search-row input:focus-visible,.sg-property-search-row button:focus-visible,.sg-property-search-row a:focus-visible{outline:3px solid #d8a43b;outline-offset:2px}
+#rentProperties .portal-card[hidden],#sgClearPropertySearch[hidden]{display:none!important}
+@media(max-width:600px){.sg-property-search{padding:16px}.sg-property-search-row button{flex:1 1 100%}.sg-property-search-row a{min-height:40px}}
