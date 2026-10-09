@@ -380,3 +380,26 @@ footer{padding-top:60px;padding-bottom:60px}
 .ai-share-preview small{display:block;color:#526477;line-height:1.5}
 .ai-compose-templates button:focus-visible,.ai-share-preview summary:focus-visible,.ai-input textarea:focus-visible{outline:3px solid #d8a43b;outline-offset:2px}
 @media(max-width:560px){.ai-compose-templates{gap:7px}.ai-compose-templates button{padding:11px 12px}.ai-compose-footer .btn{flex:1 1 100%}.ai-compose-footer small{font-size:10px}.ai-share-preview{margin:9px 8px 4px}}
+
+/* Encyclopedia editorial UX: official references, reviewed articles, topic navigation. */
+.encyclopedia-standard{margin:0 0 25px;padding:23px 25px;background:#f8fbff;border:1px solid #dbe5ef;border-left:4px solid #d8a43b;border-radius:12px}
+.encyclopedia-standard h2{font-size:clamp(19px,2.4vw,25px);margin:0 0 10px;color:#07182d}
+.encyclopedia-standard p{margin:8px 0 0;line-height:1.7;color:#40546a;font-size:14px}
+.guide-topic-filters{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 25px}
+.guide-topic-filters button{border:1px solid #b9c9d9;border-radius:999px;background:#fff;color:#163a5b;padding:11px 15px;min-height:44px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.guide-topic-filters button.active{background:#07182d;border-color:#07182d;color:#fff}
+.guide-topic-filters button:focus-visible,.guide-search input:focus-visible{outline:3px solid #d8a43b;outline-offset:2px}
+.guide-check-status{display:inline-block;font-size:11px;line-height:1.4;font-weight:750;color:#536477;background:#f0f4f8;border-radius:5px;padding:6px 9px;margin-top:12px}
+.guide-grid article:has(.guide-check-status:first-of-type){border-radius:12px}
+.guide-no-results{grid-column:1/-1;padding:24px;background:#f8fbff;border:1px solid #dce4ec;border-radius:12px}
+.guide-no-results a{display:inline-block;margin-top:8px}
+.guide-article .guide-reviewed{font-size:12px;color:#526477;margin:15px 0 24px}
+.guide-article>div:first-child h2{font-size:clamp(22px,3vw,30px);line-height:1.42;font-weight:650;letter-spacing:-.02em}
+.guide-article .guide-points p{font-size:15px;color:#43576c}
+.guide-article .guide-sources{margin-top:26px;padding:22px 24px;border:1px solid #dce4ec;background:#fff;border-radius:12px}
+.guide-article .guide-sources h3{margin:0 0 8px;font-size:20px}
+.guide-article .guide-sources p{font-size:13px;color:#526477;line-height:1.6}
+.guide-article .guide-sources ul{padding-left:21px;line-height:1.9}
+.guide-article .guide-sources a{color:#155a96;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.guide-article .guide-sources a:focus-visible{outline:3px solid #d8a43b;outline-offset:3px}
+@media(max-width:600px){.encyclopedia-standard{padding:17px}.guide-search{flex-wrap:wrap}.guide-search input{flex:1 1 100%;min-width:0}.guide-topic-filters button{font-size:11px}.guide-article .guide-sources{padding:18px}}
