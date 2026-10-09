@@ -414,3 +414,19 @@ footer{padding-top:60px;padding-bottom:60px}
 .guide-important-notice a{display:inline-block;margin-left:3px}
 .guide-important-notice+.guide-article{padding-top:35px}
 @media(max-width:650px){.encyclopedia-disclaimer{padding:18px 17px}.encyclopedia-disclaimer h2{font-size:18px}.guide-important-notice{margin:20px 16px 0;padding:14px 16px}.guide-important-notice+.guide-article{padding-top:28px}}
+
+/* Rental timeline guide: accessible table, readable on mobile. */
+.rental-timeline-article{max-width:1120px}
+.rental-timeline-article>p:not(.guide-reviewed):not(.guide-disclaimer){line-height:1.7;color:#44586c}
+.rental-timeline-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #dce4ec;border-radius:12px;background:#fff;margin:25px 0 30px;box-shadow:0 8px 24px rgba(7,24,45,.04)}
+.rental-timeline-scroll:focus-visible{outline:3px solid #d8a43b;outline-offset:3px}
+.rental-timeline-table{width:100%;min-width:770px;border-collapse:collapse;font-size:14px;line-height:1.6}
+.rental-timeline-table thead{background:#07182d;color:#fff}
+.rental-timeline-table th{padding:17px 16px;text-align:left;white-space:nowrap}
+.rental-timeline-table td{padding:16px;vertical-align:top;border-top:1px solid #e1e8ef;color:#3d5268}
+.rental-timeline-table tbody tr:nth-child(even){background:#f8fbff}
+.rental-timeline-table td:first-child{min-width:145px;color:#07182d}
+.rental-timeline-table td:nth-child(2){min-width:130px}
+.rental-timeline-table td:nth-child(3){min-width:340px}
+.rental-timeline-table td:nth-child(4){min-width:165px}
+@media(max-width:650px){.rental-timeline-article{padding-left:16px;padding-right:16px}.rental-timeline-table{font-size:13px}.rental-timeline-table td,.rental-timeline-table th{padding:13px}}
