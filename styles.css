@@ -430,3 +430,19 @@ footer{padding-top:60px;padding-bottom:60px}
 .rental-timeline-table td:nth-child(3){min-width:340px}
 .rental-timeline-table td:nth-child(4){min-width:165px}
 @media(max-width:650px){.rental-timeline-article{padding-left:16px;padding-right:16px}.rental-timeline-table{font-size:13px}.rental-timeline-table td,.rental-timeline-table th{padding:13px}}
+
+/* Tenant responsibilities guide: easy-to-scan routine and responsibility table. */
+.tenant-duties-table td:first-child{min-width:180px}
+.tenant-duties-table td:nth-child(2){min-width:145px}
+.tenant-duties-table td:nth-child(3){min-width:420px}
+.tenant-duties-table td:nth-child(4){min-width:120px}
+.tenant-duty-type{display:inline-block;background:#f1f5f9;border-radius:6px;padding:5px 8px;color:#274761;font-size:12px;font-weight:750}
+.tenant-duties-explainer{margin:30px 0;padding:22px 24px;background:#fff;border:1px solid #dce4ec;border-radius:12px}
+.tenant-duties-explainer h2{font-size:clamp(20px,2.7vw,26px);margin:0 0 12px}
+.tenant-duties-explainer p{font-size:15px;line-height:1.7;color:#43576c}
+.tenant-duties-explainer a{color:#165a94;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.tenant-routine{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.tenant-routine>div{background:#f8fbff;border:1px solid #e0e8ef;border-radius:9px;padding:15px}
+.tenant-routine h3{margin:0 0 8px;font-size:17px}
+.tenant-routine p{margin:0;font-size:14px}
+@media(max-width:600px){.tenant-duties-explainer{padding:17px}.tenant-routine{grid-template-columns:1fr}}
