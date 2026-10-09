@@ -21,20 +21,42 @@ if(aiNewChat){aiNewChat.addEventListener('click',()=>{
  if(requestInFlight)return;
  if(history.length&&!window.confirm('Start a new chat? This will clear your previous AI conversation from this browser.'))return;
  history.length=0;latestLead=null;latestViewing=null;out.replaceChildren();input.value='';
+ updateSharePreview();
  try{localStorage.removeItem('sgrb_ai_history')}catch(e){}
  input.focus();
 });}
 document.querySelectorAll('[data-text]').forEach(b=>b.onclick=()=>send(b.dataset.text));
+// Optional templates let visitors provide the useful details in one message instead of many AI turns.
+const TEMPLATES={
+ home:'I am looking to rent a home in Singapore.\nPreferred area / MRT: \nMonthly budget: S$\nBedrooms / property type: \nMove-in date: \nHousehold / other requirements: \nPlease help me plan the search and next steps.',
+ landlord:'I own a property in Singapore and need rental advice.\nDevelopment / location: \nProperty type / bedrooms / size: \nCurrent or expected rent: S$\nAvailable from / lease expiry: \nWhat I need help with: rental assessment, marketing, tenant search and next steps.',
+ tenancy:'I have a Singapore tenancy question.\nI am the: landlord / tenant\nIssue or clause: \nRelevant dates: \nWhat has happened so far: \nPlease explain the options and practical next steps.'
+};
+document.querySelectorAll('[data-prefill]').forEach(b=>b.addEventListener('click',()=>{
+ if(requestInFlight)return;
+ input.value=TEMPLATES[b.dataset.prefill]||'';
+ input.focus();
+ input.scrollIntoView({behavior:'smooth',block:'center'});
+}));
+input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();if(!requestInFlight&&input.value.trim())form.requestSubmit();}});
 form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(q)send(q)});
 // Share a current, user-approved AI brief via WhatsApp; never send chat content automatically.
 const aiContactWang=document.getElementById('aiContactWang');
-if(aiContactWang){aiContactWang.addEventListener('click',()=>{aiContactWang.href=wa('I would like Wang JC to contact me personally.');});}
+if(aiContactWang){aiContactWang.addEventListener('click',()=>{aiContactWang.href=wa();updateSharePreview();});}
+function updateSharePreview(){
+ const preview=document.getElementById('aiShareMessage');
+ if(!preview)return;
+ const url=new URL(wa());
+ preview.textContent=url.searchParams.get('text')||'';
+}
 
 
 async function send(q){
  if(requestInFlight)return;
  requestInFlight=true;
  addBubble('user',q);history.push({role:'user',content:q});input.value='';
+ try{localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-MAX_HISTORY)))}catch(e){}
+ updateSharePreview();
  setBusy(true);const thinking=document.createElement('div');thinking.className='bot-bubble ai-thinking';thinking.textContent='SGRentalBros AI is working on this…';out.appendChild(thinking);
  try{
   const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),25000);let r;try{r=await fetch('/api/concierge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history.slice(-MAX_HISTORY)}),signal:controller.signal})}finally{clearTimeout(timeout)}
@@ -43,9 +65,10 @@ async function send(q){
   const reply=data.reply||'Tell me a little more about what you need.';
   history.push({role:'assistant',content:reply});latestLead=data.lead_summary||latestLead;latestViewing=data.viewing_brief||latestViewing;addBot(reply,data.suggestions||[],data.resources||[],data.journey||null,data.property_search||null,data.viewing_brief||null,data.next_step||null,data.lead_summary||null,!!data.handoff);
   try{localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-MAX_HISTORY)))}catch(e){}
+  updateSharePreview();
  }catch(err){
   thinking.remove();addFallback(err&&err.name==='AbortError'?'The AI took longer than expected to respond.':(err.message||'The AI service is temporarily unavailable.'),q);
- }finally{requestInFlight=false;setBusy(false)}
+ }finally{requestInFlight=false;setBusy(false);updateSharePreview()}
 }
 function addBubble(role,text){
  const d=document.createElement('div');d.className=role==='user'?'user-bubble':'bot-bubble';d.textContent=text;out.appendChild(d);scroll();
@@ -82,9 +105,12 @@ function wa(extra=''){
  return 'https://wa.me/'+WA+'?text='+encodeURIComponent(body);
 }
 function formatDate(s){if(!/^\d{4}-\d{2}-\d{2}$/.test(String(s||'')))return s||'';const d=new Date(s+'T12:00:00+08:00');return new Intl.DateTimeFormat('en-SG',{day:'numeric',month:'short',year:'numeric'}).format(d)}
-function setBusy(v){const b=form.querySelector('button');b.disabled=v;b.textContent=v?'THINKING…':'SEND →';input.disabled=v;if(aiNewChat)aiNewChat.disabled=v}
-function scroll(){out.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function setBusy(v){const b=form.querySelector('button');b.disabled=v;b.textContent=v?'THINKING…':'SEND →';input.disabled=v;if(aiNewChat)aiNewChat.disabled=v;document.querySelectorAll('[data-text],[data-prefill],.ai-suggestions button').forEach(x=>x.disabled=v)}
+function scroll(){const chat=out.closest('.ai-chat');if(chat)chat.scrollTop=chat.scrollHeight}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 
 let restored=false;try{const saved=JSON.parse(localStorage.getItem('sgrb_ai_history')||'[]');if(Array.isArray(saved)&&saved.length){saved.slice(-MAX_HISTORY).forEach(m=>{if(!m||!['user','assistant'].includes(m.role)||typeof m.content!=='string')return;const clean={role:m.role,content:m.content.slice(0,2500)};history.push(clean);addBubble(clean.role,clean.content)});restored=history.length>0}}catch(e){}
 const entryParams=new URLSearchParams(location.search);const area=entryParams.get('area');const property=entryParams.get('property');const starter=entryParams.get('start');if(property&&property.trim()){input.value='I am interested in viewing '+property.trim().slice(0,100)+'. Please help me check the listing details and plan a viewing.';input.focus()}else if(area&&area.trim()){input.value='I am looking for a rental home around '+area.trim().slice(0,100)+'. Please help me shortlist options and plan viewings.';input.focus()}else if(!restored&&starter&&STARTERS[starter]){input.value=STARTERS[starter];input.focus()}
+
+// Show exactly what will be placed into WhatsApp, including restored conversations.
+updateSharePreview();
