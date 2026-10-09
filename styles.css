@@ -403,3 +403,14 @@ footer{padding-top:60px;padding-bottom:60px}
 .guide-article .guide-sources a{color:#155a96;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
 .guide-article .guide-sources a:focus-visible{outline:3px solid #d8a43b;outline-offset:3px}
 @media(max-width:600px){.encyclopedia-standard{padding:17px}.guide-search{flex-wrap:wrap}.guide-search input{flex:1 1 100%;min-width:0}.guide-topic-filters button{font-size:11px}.guide-article .guide-sources{padding:18px}}
+
+/* Rental Encyclopedia: visible, readable guidance disclaimer on hub and articles. */
+.encyclopedia-disclaimer{max-width:1050px;margin:0 auto 24px;padding:22px 26px;background:#fff8eb;border:1px solid #e7d2a7;border-left:5px solid #bb8628;border-radius:12px;color:#2d3540;scroll-margin-top:110px}
+.encyclopedia-disclaimer h2{font-size:20px;line-height:1.3;margin:0 0 10px;color:#513916}
+.encyclopedia-disclaimer p{font-size:14px;line-height:1.75;margin:9px 0}
+.encyclopedia-disclaimer a,.guide-important-notice a{color:#165888;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.guide-important-notice{max-width:900px;margin:26px auto 0;padding:17px 22px;border:1px solid #e7d2a7;border-left:4px solid #bb8628;background:#fff8eb;border-radius:10px;color:#343d49;font-size:13px;line-height:1.7}
+.guide-important-notice strong{color:#513916}
+.guide-important-notice a{display:inline-block;margin-left:3px}
+.guide-important-notice+.guide-article{padding-top:35px}
+@media(max-width:650px){.encyclopedia-disclaimer{padding:18px 17px}.encyclopedia-disclaimer h2{font-size:18px}.guide-important-notice{margin:20px 16px 0;padding:14px 16px}.guide-important-notice+.guide-article{padding-top:28px}}
