@@ -364,3 +364,19 @@ footer{padding-top:60px;padding-bottom:60px}
 .sg-property-search-row input:focus-visible,.sg-property-search-row button:focus-visible,.sg-property-search-row a:focus-visible{outline:3px solid #d8a43b;outline-offset:2px}
 #rentProperties .portal-card[hidden],#sgClearPropertySearch[hidden]{display:none!important}
 @media(max-width:600px){.sg-property-search{padding:16px}.sg-property-search-row button{flex:1 1 100%}.sg-property-search-row a{min-height:40px}}
+
+/* Concierge UX: compact templates, comfortable composer and explicit WhatsApp preview. */
+.ai-compose-templates{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0 2px}
+.ai-compose-templates>span{flex-basis:100%;font-size:12px;font-weight:750;color:#526477}
+.ai-compose-templates button{border:1px solid #cbd8e5;border-radius:999px;padding:10px 13px;background:#fff;color:#163a5b;font:inherit;font-size:12px;font-weight:750;cursor:pointer}
+.ai-compose-templates button:hover{border-color:#d8a43b;background:#fff9ec}
+.ai-compose-templates button:disabled{opacity:.5;cursor:wait}
+.ai-compose-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ai-compose-footer small{font-size:11px;line-height:1.5;color:#607184}
+.ai-compose-footer .btn{min-width:105px;min-height:44px}
+.ai-share-preview{margin:10px 16px 4px;border:1px solid #dce4ec;border-radius:12px;background:#f7faff;padding:12px 14px}
+.ai-share-preview summary{font-size:12px;font-weight:800;color:#1c4669;cursor:pointer;min-height:25px}
+.ai-share-preview pre{max-height:240px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;background:#fff;border:1px solid #e1e8ef;border-radius:8px;padding:12px}
+.ai-share-preview small{display:block;color:#526477;line-height:1.5}
+.ai-compose-templates button:focus-visible,.ai-share-preview summary:focus-visible,.ai-input textarea:focus-visible{outline:3px solid #d8a43b;outline-offset:2px}
+@media(max-width:560px){.ai-compose-templates{gap:7px}.ai-compose-templates button{padding:11px 12px}.ai-compose-footer .btn{flex:1 1 100%}.ai-compose-footer small{font-size:10px}.ai-share-preview{margin:9px 8px 4px}}
