@@ -489,3 +489,21 @@ footer{padding-top:60px;padding-bottom:60px}
 .about-jc-credentials-note{font-size:12px;color:#687789}
 @media(max-width:850px){.about-jc-hero{grid-template-columns:1fr;padding-top:52px;gap:8px}.about-jc-visual img{max-height:290px}.about-jc-section{grid-template-columns:1fr;gap:20px;padding-top:56px;padding-bottom:56px}.about-jc-credentials dl{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:550px){.about-jc-hero h1{letter-spacing:-.04em}.about-jc-value-grid,.about-jc-service-grid{grid-template-columns:1fr}.about-jc-chips span{font-size:11px}.about-jc-credentials dl{grid-template-columns:1fr 1fr}.about-jc-credentials dd{font-size:14px}}
+
+/* Wang JC real portrait and independently linked PropertyGuru track record */
+.about-jc-visual img{width:min(100%,365px);max-height:365px;aspect-ratio:1/1;object-fit:cover;object-position:center 37%;border-radius:22px;border:5px solid #ffffff24;box-shadow:0 22px 55px #0006}
+.about-jc-visual p a{color:#eacb80;text-decoration:underline;text-underline-offset:3px}
+.about-jc-track-record{padding:70px max(6vw,24px);background:#fff}
+.about-jc-track-header{max-width:1130px;margin:0 auto 26px}
+.about-jc-track-header h2{font-size:clamp(29px,3.8vw,47px);letter-spacing:-.035em;line-height:1.15;margin:12px 0}
+.about-jc-track-header p{font-size:15px;color:#526477;line-height:1.7;max-width:700px}
+.about-jc-stats{max-width:1130px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.about-jc-stats>div{border:1px solid #dce4ec;border-radius:12px;padding:25px 18px;background:#f7f9fc}
+.about-jc-stats strong{display:block;color:#092b4a;font-size:clamp(29px,3.6vw,43px);line-height:1.1;font-weight:900}
+.about-jc-stats span{display:block;font-size:13px;line-height:1.5;color:#526477;margin-top:10px;font-weight:650}
+.about-jc-transactions{max-width:1130px;margin:20px auto 0;padding:20px 24px;background:#f9fbfd;border:1px solid #dce4ec;border-radius:12px}
+.about-jc-transactions p{font-size:14px;line-height:1.75;margin:0 0 9px;color:#43576c}
+.about-jc-transactions a{display:inline-block;color:#155a96;font-size:14px;font-weight:800;text-decoration:underline;text-underline-offset:3px;margin:6px 0 10px}
+.about-jc-transactions small{display:block;font-size:12px;line-height:1.65;color:#687789}
+@media(max-width:850px){.about-jc-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.about-jc-visual img{width:min(100%,330px)}}
+@media(max-width:450px){.about-jc-stats>div{padding:17px 13px}.about-jc-stats strong{font-size:30px}.about-jc-stats span{font-size:12px}.about-jc-transactions{padding:17px}}
