@@ -176,3 +176,11 @@
 .sg-premium-home .lux-last-cta a{width:100%}
 }
 @media(prefers-reduced-motion:reduce){.sg-premium-home .lux-quick-card,.sg-premium-home .lux-guide-grid>a{transition:none}}
+
+/* Bring actual SGRentalBros property videos forward in the premium homepage. */
+.sg-premium-home .lux-video-section{background:#f7f9fc!important;border-top:1px solid #e7ebf0;border-bottom:1px solid #e7ebf0;scroll-margin-top:90px}
+.sg-premium-home .lux-video-section .section-head h2{font-family:Georgia,serif;font-weight:500;letter-spacing:-1.3px;color:#102443}
+.sg-premium-home .lux-video-section .section-head .kicker{color:#b5812f}
+.sg-premium-home .lux-video-section .tiktok-video{border-radius:16px;overflow:hidden;border:1px solid #e2e8ee;box-shadow:0 14px 32px #1024430d;background:#fff}
+.sg-premium-home .lux-video-section .tiktok-video a{display:block;text-align:center;padding:14px;font-weight:800;font-size:12px;letter-spacing:.02em;color:#102443}
+.sg-premium-home .lux-video-section .tiktok-profile-cta{border-radius:14px}
