@@ -194,3 +194,92 @@
 @media(max-width:900px){.sg-premium-home .lux-hero-mascot{right:2%;width:200px;bottom:64px}.sg-premium-home .lux-hero-inner{max-width:680px;padding-right:160px}.sg-premium-home .lux-hero-callout{display:none}}
 @media(max-width:650px){.sg-premium-home .lux-hero{min-height:610px}.sg-premium-home .lux-hero-inner{padding:42px 20px 205px;max-width:100%}.sg-premium-home .lux-hero-mascot{width:165px;right:3%;bottom:52px}.sg-premium-home .lux-benefits{max-width:250px}.sg-premium-home .lux-hero-bg{opacity:.29}.sg-premium-home .lux-hero:before{background:linear-gradient(90deg,#fffffff5,#ffffffd6)}}
 @media(max-width:370px){.sg-premium-home .lux-hero{min-height:660px}.sg-premium-home .lux-hero-mascot{width:140px;bottom:60px}}
+
+/* Mobile-first compact homepage: fewer vertical stacks, same real content and links. */
+.sg-premium-home .lux-mobile-jumps,.sg-premium-home .lux-mobile-expand,.sg-premium-home .lux-swipe-hint{display:none}
+@media(max-width:650px){
+  .sg-premium-home{overflow-x:clip}
+  .sg-premium-home .lux-nav{height:62px}
+  .sg-premium-home .lux-nav .brand-logo img{width:155px}
+  .sg-premium-home .lux-hero{min-height:450px}
+  .sg-premium-home .lux-hero-inner{padding:29px 18px 148px}
+  .sg-premium-home .lux-eyebrow{font-size:9px;letter-spacing:1.2px}
+  .sg-premium-home .lux-hero h1{font-size:clamp(34px,8.5vw,43px);letter-spacing:-1.4px;line-height:1.08;margin:10px 0 13px}
+  .sg-premium-home .lux-hero-inner>p{font-size:13px;line-height:1.55;max-width:95%;margin:0}
+  .sg-premium-home .lux-benefits{display:none}
+  .sg-premium-home .lux-hero-mascot{width:133px;right:4%;bottom:45px}
+  .sg-premium-home .lux-search-wrap{margin:-50px auto 0;padding:0 12px}
+  .sg-premium-home .lux-search-tabs a{padding:11px 13px;font-size:10px}
+  .sg-premium-home .lux-search-panel{padding:11px;gap:9px}
+  .sg-premium-home .lux-search-panel label span{font-size:10px;margin-bottom:4px}
+  .sg-premium-home .lux-search-panel input{height:39px;font-size:12px}
+  .sg-premium-home .lux-search-panel button{min-height:39px;padding:11px 13px}
+  .sg-premium-home .lux-mobile-jumps{display:flex;overflow-x:auto;gap:8px;padding:15px 12px 3px;scrollbar-width:none;scroll-snap-type:x proximity}
+  .sg-premium-home .lux-mobile-jumps::-webkit-scrollbar{display:none}
+  .sg-premium-home .lux-mobile-jumps a{flex:0 0 auto;white-space:nowrap;background:#f5f0e7;border:1px solid #e8dac4;border-radius:40px;color:#18314d;padding:11px 14px;font-size:11px;font-weight:800;scroll-snap-align:start}
+  .sg-premium-home .lux-quick{padding:14px 12px 23px;gap:8px}
+  .sg-premium-home .lux-quick-photo{display:none}
+  .sg-premium-home .lux-quick-body{min-height:72px;padding:11px;align-items:center}
+  .sg-premium-home .lux-quick-body small{margin-top:4px}
+  .sg-premium-home .lux-profile{padding:0 12px;grid-template-columns:104px minmax(0,1fr);gap:12px;min-height:0}
+  .sg-premium-home .lux-profile-photo{min-height:188px;max-height:220px}
+  .sg-premium-home .lux-profile-copy{padding:14px 0}
+  .sg-premium-home .lux-profile-copy h2{font-size:28px;margin:5px 0}
+  .sg-premium-home .lux-profile-copy h3{font-size:11px;line-height:1.4;margin:0 0 7px}
+  .sg-premium-home .lux-profile-copy p{font-size:11px;line-height:1.45;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+  .sg-premium-home .lux-gold-btn{padding:9px 11px;min-height:35px;font-size:10px}
+  .sg-premium-home .lux-profile-stats{display:flex;grid-column:1/-1;gap:8px;overflow-x:auto;padding:0 0 12px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .sg-premium-home .lux-profile-stats>div{flex:0 0 120px;min-width:0;padding:10px;scroll-snap-align:start}
+  .sg-premium-home .lux-profile-stats strong{font-size:23px}
+  .sg-premium-home .lux-profile-stats span{font-size:10px;margin-top:3px}
+  .sg-premium-home .lux-profile-stats>small{flex:0 0 100%;align-self:center;font-size:9px}
+  .sg-premium-home .lux-guides{padding:28px 12px 24px}
+  .sg-premium-home .lux-section-heading{margin-bottom:12px;gap:8px}
+  .sg-premium-home .lux-section-heading h2{font-size:27px}
+  .sg-premium-home .lux-section-heading p{font-size:11px}
+  .sg-premium-home .lux-guide-grid{display:flex;gap:11px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px 2px 12px}
+  .sg-premium-home .lux-guide-grid>a{flex:0 0 min(67vw,260px);scroll-snap-align:start}
+  .sg-premium-home .lux-guide-img{height:115px}
+  .sg-premium-home .lux-guide-body{min-height:124px}
+  .sg-premium-home .section{padding:30px 12px}
+  .sg-premium-home .section h2{font-size:28px}
+  .sg-premium-home .section-head{margin-bottom:12px}
+  .sg-premium-home .section-head p{font-size:11px;line-height:1.5}
+  .sg-premium-home .lux-more-link{margin:0 0 10px}
+  .sg-premium-home .lux-swipe-hint{display:block;font-size:11px;color:#8a652c;font-weight:800;margin:5px 0 11px}
+  .sg-premium-home .rental-grid,.sg-premium-home .sale-grid,.sg-premium-home .launch-grid{display:flex;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:2px 2px 15px;scrollbar-width:none;overscroll-behavior-inline:contain}
+  .sg-premium-home .rental-grid>.card,.sg-premium-home .sale-grid>.card,.sg-premium-home .launch-grid>.card{flex:0 0 min(79vw,300px);min-width:0;scroll-snap-align:start}
+  .sg-premium-home .rental-grid .card .pic,.sg-premium-home .sale-grid .card .salepic{height:155px}
+  .sg-premium-home .rental-grid .card .pad,.sg-premium-home .sale-grid .card .pad{padding:13px}
+  .sg-premium-home .rental-grid .card .pad h3,.sg-premium-home .sale-grid .card .pad h3{font-size:17px}
+  .sg-premium-home .rental-grid .card .pad p,.sg-premium-home .sale-grid .card .pad p{font-size:12px}
+  .sg-premium-home .filters{margin-bottom:10px;overflow-x:auto;scrollbar-width:none}
+  .sg-premium-home .filters button{flex:0 0 auto;font-size:11px;padding:8px 12px}
+  .sg-premium-home .lux-video-section .tiktok-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 12px;scrollbar-width:none}
+  .sg-premium-home .lux-video-section .tiktok-video{flex:0 0 min(59vw,230px);min-width:0;scroll-snap-align:start}
+  .sg-premium-home .lux-video-section .tiktok-video iframe{aspect-ratio:9/16}
+  .sg-premium-home .lux-video-section .tiktok-profile-cta{padding:15px;gap:9px}
+  .sg-premium-home .lux-video-section .tiktok-profile-cta .btn{width:auto;min-width:0}
+  .sg-premium-home #sales .sg-sales-paths{gap:8px;margin:0 0 15px}
+  .sg-premium-home #sales .sg-sales-paths a{padding:11px}
+  .sg-premium-home #sales .sg-sales-paths strong{font-size:12px}
+  .sg-premium-home #sales .sg-sales-paths span{font-size:10px}
+  .sg-premium-home .lux-mobile-expand{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;background:#fff;color:#102443;border:1px solid #e1e5ea;border-radius:12px;padding:16px;box-shadow:0 4px 14px #1024430b;cursor:pointer}
+  .sg-premium-home .lux-mobile-expand strong{display:block;font-size:15px}
+  .sg-premium-home .lux-mobile-expand small{display:block;font-size:11px;line-height:1.45;color:#617081;margin-top:4px}
+  .sg-premium-home .lux-mobile-expand b{font-size:23px;color:#b98432}
+  .sg-premium-home.sg-mobile-enhanced .lux-mobile-fold:not(.lux-mobile-open)>:not(.lux-mobile-expand){display:none!important}
+  .sg-premium-home.sg-mobile-enhanced .lux-mobile-fold:not(.lux-mobile-open){padding:8px 12px!important;background:#fafbfc!important}
+  .sg-premium-home.sg-mobile-enhanced #landlords.lux-mobile-fold:not(.lux-mobile-open){background:#f7f9fc!important}
+  .sg-premium-home .lux-mobile-fold.lux-mobile-open>.lux-mobile-expand{margin-bottom:20px}
+  .sg-premium-home .lux-last-cta{margin:15px 12px 30px;padding:22px}
+  .sg-premium-home .lux-last-cta h2{font-size:24px}
+  .sg-premium-home .lux-last-cta a{font-size:12px;padding:13px}
+  .sg-premium-home #rentals,.sg-premium-home #tiktok,.sg-premium-home #sales,.sg-premium-home #lux-guides-title{scroll-margin-top:75px}
+}
+@media(max-width:370px){
+ .sg-premium-home .lux-hero{min-height:485px}
+ .sg-premium-home .lux-hero-mascot{width:115px;bottom:52px}
+ .sg-premium-home .lux-profile{grid-template-columns:85px minmax(0,1fr)}
+ .sg-premium-home .lux-profile-copy h2{font-size:24px}
+}
