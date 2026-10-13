@@ -1,0 +1,178 @@
+
+/* SGRentalBros premium homepage — approved bright navy/gold direction, October 2026.
+   Scoped to homepage to preserve functional interior pages. */
+.sg-premium-home{background:#fff;color:#102443;font-family:"DM Sans",Arial,sans-serif}
+.sg-premium-home .lux-nav{height:78px;position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);color:#102443;border-bottom:1px solid #e9e9e7;box-shadow:0 3px 18px #11274809;padding:0 clamp(20px,4vw,70px)}
+.sg-premium-home .lux-nav .brand-logo img{width:205px;max-height:57px}
+.sg-premium-home .lux-nav #navLinks{display:flex;align-items:center;gap:clamp(12px,1.5vw,25px);font-size:12px;line-height:1.35;font-weight:800}
+.sg-premium-home .lux-nav #navLinks>a{color:#12233d;white-space:nowrap}
+.sg-premium-home .lux-nav #navLinks>a:hover,.sg-premium-home .lux-nav #navLinks>a[aria-current]{color:#b4822f}
+.sg-premium-home .lux-nav #navLinks .sg-nav-contact{background:linear-gradient(115deg,#bf8a32,#e1b663);color:#07182d!important;padding:12px 18px;border-radius:30px;box-shadow:none}
+.sg-premium-home .lux-nav #menuBtn{color:#102443}
+.sg-premium-home .lux-eyebrow{display:block;color:#ac7b35;font-size:11px;font-weight:900;letter-spacing:2px;line-height:1.5}
+.sg-premium-home .lux-hero{min-height:465px;position:relative;isolation:isolate;background:#f8f7f4;overflow:hidden}
+.sg-premium-home .lux-hero-bg{position:absolute;inset:0 0 0 46%;background:url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=85") center/cover;z-index:-2}
+.sg-premium-home .lux-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#fff 0%,#fff 27%,#ffffffed 41%,#ffffffb0 53%,#ffffff15 74%,transparent 100%);z-index:-1}
+.sg-premium-home .lux-hero-inner{padding:clamp(55px,6vw,94px) clamp(24px,5vw,76px) 94px;max-width:950px}
+.sg-premium-home .lux-hero h1{font-family:Georgia,serif;font-size:clamp(41px,4.5vw,69px);line-height:1.1;letter-spacing:-2px;font-weight:500;margin:13px 0 20px;color:#0c2448}
+.sg-premium-home .lux-hero h1 em{font-style:normal;color:#b8863d}
+.sg-premium-home .lux-hero-inner>p{font-size:16px;line-height:1.7;max-width:600px;color:#3d4a5d;margin:0 0 27px}
+.sg-premium-home .lux-benefits{display:flex;gap:clamp(15px,2.5vw,34px);flex-wrap:wrap}
+.sg-premium-home .lux-benefits>span{display:flex;align-items:center;gap:10px}
+.sg-premium-home .lux-benefits b{font-size:27px;color:#b98432;font-weight:400}
+.sg-premium-home .lux-benefits strong{font-size:12px;line-height:1.3}
+.sg-premium-home .lux-benefits small{display:block;font-size:11px;color:#657181;font-weight:500;margin-top:3px}
+.sg-premium-home .lux-hero-callout{position:absolute;right:4%;bottom:48px;width:255px;display:flex;align-items:center;gap:12px;padding:17px;background:#ffffffed;border:1px solid #f2f2f2;border-radius:14px;box-shadow:0 15px 35px #1024431f;color:#132944}
+.sg-premium-home .lux-hero-callout .lux-callout-icon{display:grid;place-items:center;flex:0 0 37px;height:37px;background:#f6eee2;border-radius:10px;color:#a6762b;font-size:25px}
+.sg-premium-home .lux-hero-callout strong{font-size:12px;display:block;line-height:1.4}
+.sg-premium-home .lux-hero-callout small{display:block;font-size:10px;line-height:1.5;color:#647286;margin-top:3px}
+.sg-premium-home .lux-hero-callout>b{color:#bd8839}
+.sg-premium-home .lux-search-wrap{max-width:1420px;margin:-38px auto 0;padding:0 clamp(20px,4vw,70px);position:relative;z-index:3}
+.sg-premium-home .lux-search-tabs{display:flex;gap:0;max-width:900px;overflow-x:auto;scrollbar-width:thin}
+.sg-premium-home .lux-search-tabs a{padding:18px 23px;min-width:max-content;text-align:center;background:#ffffffed;border:1px solid #eeeef0;border-bottom:0;color:#172d4e;font-size:12px;font-weight:800;white-space:nowrap}
+.sg-premium-home .lux-search-tabs a:first-child{border-radius:12px 0 0 0}
+.sg-premium-home .lux-search-tabs a:last-child{border-radius:0 12px 0 0}
+.sg-premium-home .lux-search-tabs a.active{background:#102a4f;color:white;border-color:#102a4f}
+.sg-premium-home .lux-search-panel{display:flex;align-items:end;gap:22px;padding:22px 26px;background:white;border-radius:0 14px 14px 14px;box-shadow:0 13px 42px #10244318;border:1px solid #eee}
+.sg-premium-home .lux-search-panel label{display:block;flex:1;min-width:170px}
+.sg-premium-home .lux-search-panel label span{display:block;font-size:12px;font-weight:800;color:#35465e;margin-bottom:9px}
+.sg-premium-home .lux-search-panel input{width:100%;height:46px;border:1px solid #dce2e9;background:#fcfcfd;padding:0 15px;border-radius:8px;color:#102443;font:inherit;font-size:14px}
+.sg-premium-home .lux-search-info{flex:1;display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:46px;padding-left:24px;border-left:1px solid #e2e6eb}
+.sg-premium-home .lux-search-info strong{font-size:13px}
+.sg-premium-home .lux-search-info small{font-size:12px;color:#647286}
+.sg-premium-home .lux-search-panel button,.sg-premium-home .lux-gold-btn{border:0;background:linear-gradient(115deg,#bc852f,#e1b663);color:#112442;font-size:12px;font-weight:900;padding:16px 24px;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-height:46px}
+.sg-premium-home .lux-search-panel button:hover,.sg-premium-home .lux-gold-btn:hover{filter:brightness(1.06)}
+.sg-premium-home .lux-quick{max-width:1420px;padding:26px clamp(20px,4vw,70px) 58px;margin:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.sg-premium-home .lux-quick-card{display:block;min-width:0;background:white;border:1px solid #e9ebed;border-radius:12px;overflow:hidden;box-shadow:0 7px 20px #1024430c;transition:transform .2s,box-shadow .2s}
+.sg-premium-home .lux-quick-card:hover,.sg-premium-home .lux-guide-grid>a:hover{transform:translateY(-4px);box-shadow:0 12px 32px #1024431a}
+.sg-premium-home .lux-quick-photo{display:block;height:125px;background-size:cover;background-position:center}
+.sg-premium-home .lux-quick-body{display:flex;align-items:center;gap:10px;min-height:85px;padding:14px}
+.sg-premium-home .lux-quick-icon{font-size:23px;color:#b98432;font-weight:400;flex:0 0 28px}
+.sg-premium-home .lux-quick-body>span{min-width:0;flex:1}
+.sg-premium-home .lux-quick-body strong{display:block;font-size:14px;color:#102443}
+.sg-premium-home .lux-quick-body small{display:block;font-size:11px;line-height:1.5;color:#637080;margin-top:5px}
+.sg-premium-home .lux-quick-body i,.sg-premium-home .lux-guide-body i{font-style:normal;border:1px solid #b98432;border-radius:50%;width:26px;height:26px;display:grid;place-items:center;color:#b98432;flex-shrink:0}
+.sg-premium-home .lux-profile{display:grid;grid-template-columns:24% 1fr 28%;gap:26px;align-items:stretch;background:linear-gradient(105deg,#f0f0ee,#fafafa 58%,#f5f5f3);padding:0 clamp(20px,5vw,80px);min-height:340px}
+.sg-premium-home .lux-profile-photo{min-height:340px;overflow:hidden;align-self:stretch;background:#e3e5e6}
+.sg-premium-home .lux-profile-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.sg-premium-home .lux-profile-copy{padding:42px 5px 40px 0;align-self:center}
+.sg-premium-home .lux-profile-copy h2,.sg-premium-home .lux-section-heading h2{font-family:Georgia,serif;font-weight:500;letter-spacing:-1.5px;color:#0b2447}
+.sg-premium-home .lux-profile-copy h2{font-size:clamp(36px,3.4vw,54px);line-height:1.1;margin:9px 0}
+.sg-premium-home .lux-profile-copy h3{color:#b28236;font-family:Georgia,serif;font-size:18px;font-weight:500;margin:0 0 17px}
+.sg-premium-home .lux-profile-copy p{font-size:14px;line-height:1.8;color:#4a5666;margin:0 0 23px;max-width:600px}
+.sg-premium-home .lux-profile-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:center;padding:25px 0}
+.sg-premium-home .lux-profile-stats>div{padding:18px;background:white;border-radius:12px;box-shadow:0 7px 19px #1024430a}
+.sg-premium-home .lux-profile-stats strong{display:block;color:#102443;font-size:clamp(24px,2.4vw,36px);letter-spacing:-1px}
+.sg-premium-home .lux-profile-stats span{display:block;font-size:11px;line-height:1.45;color:#5f6d7b;margin-top:6px}
+.sg-premium-home .lux-profile-stats>small{grid-column:1/-1;color:#647286;font-size:10px;line-height:1.5}
+.sg-premium-home .lux-profile-stats>small a{text-decoration:underline}
+.sg-premium-home .lux-guides{padding:72px clamp(20px,5vw,80px) 64px;max-width:1520px;margin:auto}
+.sg-premium-home .lux-section-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:28px}
+.sg-premium-home .lux-section-heading h2{font-size:clamp(33px,3.2vw,46px);margin:6px 0}
+.sg-premium-home .lux-section-heading p{font-size:14px;color:#647286;margin:0}
+.sg-premium-home .lux-section-heading>a,.sg-premium-home .lux-more-link>a{color:#ae792c;font-size:13px;font-weight:800;white-space:nowrap}
+.sg-premium-home .lux-guide-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.sg-premium-home .lux-guide-grid>a{display:block;overflow:hidden;background:#fff;border:1px solid #e8ebee;border-radius:12px;box-shadow:0 5px 20px #1024430a;transition:transform .2s,box-shadow .2s}
+.sg-premium-home .lux-guide-img{display:block;height:148px;background-size:cover;background-position:center}
+.sg-premium-home .lux-guide-body{position:relative;display:flex;flex-direction:column;min-height:134px;padding:17px 46px 18px 17px}
+.sg-premium-home .lux-guide-body small{font-size:10px;letter-spacing:1px;color:#ae792c;font-weight:900}
+.sg-premium-home .lux-guide-body strong{font-size:15px;margin-top:8px;color:#102443}
+.sg-premium-home .lux-guide-body>span{font-size:12px;line-height:1.5;color:#657182;margin-top:7px}
+.sg-premium-home .lux-guide-body i{position:absolute;bottom:20px;right:15px}
+.sg-premium-home .section{padding:75px clamp(20px,5vw,80px)}
+.sg-premium-home .section h2{color:#102443;font-family:Georgia,serif;font-weight:500;letter-spacing:-1.5px;line-height:1.12;font-size:clamp(33px,3.6vw,49px)}
+.sg-premium-home .section-head{align-items:end;margin-bottom:26px}
+.sg-premium-home .section-head p{font-size:14px;line-height:1.65}
+.sg-premium-home .section .kicker{color:#ad7b35}
+.sg-premium-home #rentals{background:#fafbfc}
+.sg-premium-home .lux-more-link{margin:-9px 0 24px;text-align:right}
+.sg-premium-home .card{border-radius:13px;box-shadow:0 8px 24px #0b25440e}
+.sg-premium-home .card .pic,.sg-premium-home .card .salepic{height:215px}
+.sg-premium-home .card .pad{padding:20px}
+.sg-premium-home .card .pad h3{font-size:20px}
+.sg-premium-home .card-row b{color:#102443}
+.sg-premium-home .card .mini{background:#f3e8d3;color:#77521e}
+.sg-premium-home .filters button.active{background:#102a4f}
+.sg-premium-home #sales{background:white}
+.sg-premium-home #rental-concierge{background:#f8fafb}
+.sg-premium-home #landlords{background:#102747}
+.sg-premium-home #landlords h2{color:#fff}
+.sg-premium-home #landlords .kicker{color:#e1b663}
+.sg-premium-home #launches{background:#f8fafb}
+.sg-premium-home #tiktok{background:#fafbfc}
+.sg-premium-home .lux-last-cta{margin:35px clamp(20px,4vw,70px) 55px;padding:32px clamp(25px,5vw,75px);background:#102747;color:white;border-radius:15px;display:flex;align-items:center;justify-content:space-between;gap:25px}
+.sg-premium-home .lux-last-cta span{font-size:11px;letter-spacing:1.6px;color:#e4b96b;font-weight:900}
+.sg-premium-home .lux-last-cta h2{font-family:Georgia,serif;font-size:clamp(25px,2.6vw,37px);font-weight:500;margin:8px 0}
+.sg-premium-home .lux-last-cta p{font-size:14px;color:#cdd6e2;margin:0}
+.sg-premium-home .lux-last-cta a{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;border-radius:30px;background:linear-gradient(115deg,#bc852f,#e1b663);color:#102443;padding:17px 25px;font-weight:900;font-size:13px}
+.sg-premium-home footer{background:#081a32;color:#dbe4ed}
+.sg-premium-home a:focus-visible,.sg-premium-home button:focus-visible,.sg-premium-home input:focus-visible{outline:3px solid #d4a24c;outline-offset:3px}
+@media(max-width:1120px){
+.sg-premium-home .lux-nav #navLinks{gap:11px;font-size:11px}
+.sg-premium-home .lux-nav .brand-logo img{width:170px}
+.sg-premium-home .lux-hero-callout{display:none}
+.sg-premium-home .lux-profile{grid-template-columns:25% 1fr 29%;gap:18px}
+.sg-premium-home .lux-profile-stats>div{padding:13px}
+}
+@media(max-width:900px){
+.sg-premium-home .lux-nav #menuBtn{display:block;color:#102443}
+.sg-premium-home .lux-nav #navLinks{display:none;position:absolute;top:100%;left:0;right:0;z-index:70;background:#fff;box-shadow:0 16px 25px #10244320;padding:16px 24px 25px;flex-direction:column;align-items:stretch;gap:0;max-height:80vh;overflow-y:auto}
+.sg-premium-home .lux-nav #navLinks.open{display:flex}
+.sg-premium-home .lux-nav #navLinks>a{padding:12px 0;border-bottom:1px solid #edf0f3;font-size:14px}
+.sg-premium-home .lux-nav #navLinks .sg-nav-contact{margin-top:14px;padding:14px}
+.sg-premium-home .lux-quick,.sg-premium-home .lux-guide-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.sg-premium-home .lux-profile{grid-template-columns:32% 1fr}
+.sg-premium-home .lux-profile-stats{grid-column:1/-1;grid-template-columns:repeat(4,1fr);padding:0 0 25px}
+.sg-premium-home .lux-profile-stats>small{grid-column:1/-1}
+}
+@media(max-width:650px){
+.sg-premium-home .lux-nav{height:68px}
+.sg-premium-home .lux-nav .brand-logo img{width:170px}
+.sg-premium-home .lux-hero{min-height:535px}
+.sg-premium-home .lux-hero-bg{inset:0;background-position:65% center;opacity:.43}
+.sg-premium-home .lux-hero:before{background:linear-gradient(90deg,#ffffffed,#ffffffd9 75%,#ffffffa6)}
+.sg-premium-home .lux-hero-inner{padding:50px 22px 115px}
+.sg-premium-home .lux-hero h1{font-size:clamp(38px,9vw,53px);letter-spacing:-1.6px}
+.sg-premium-home .lux-hero-inner>p{font-size:15px}
+.sg-premium-home .lux-benefits{gap:14px}
+.sg-premium-home .lux-benefits>span{flex:1 1 42%;gap:8px}
+.sg-premium-home .lux-benefits b{font-size:22px}
+.sg-premium-home .lux-benefits strong{font-size:11px}
+.sg-premium-home .lux-benefits small{font-size:10px}
+.sg-premium-home .lux-search-wrap{margin:-65px auto 0;padding:0 14px}
+.sg-premium-home .lux-search-tabs a{padding:13px 16px;font-size:11px}
+.sg-premium-home .lux-search-panel{padding:17px;flex-wrap:wrap;gap:12px;border-radius:0 0 12px 12px}
+.sg-premium-home .lux-search-panel label{flex:1 1 100%}
+.sg-premium-home .lux-search-info{display:none}
+.sg-premium-home .lux-search-panel button{width:100%}
+.sg-premium-home .lux-quick{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:20px 14px 45px}
+.sg-premium-home .lux-quick-photo{height:92px}
+.sg-premium-home .lux-quick-body{min-height:105px;padding:12px 10px;gap:7px}
+.sg-premium-home .lux-quick-icon{display:none}
+.sg-premium-home .lux-quick-body strong{font-size:12px}
+.sg-premium-home .lux-quick-body small{font-size:10px}
+.sg-premium-home .lux-quick-body i{width:22px;height:22px}
+.sg-premium-home .lux-profile{display:grid;grid-template-columns:35% 1fr;gap:15px;padding:0 16px}
+.sg-premium-home .lux-profile-photo{min-height:265px}
+.sg-premium-home .lux-profile-copy{padding:27px 0}
+.sg-premium-home .lux-profile-copy h2{font-size:32px}
+.sg-premium-home .lux-profile-copy h3{font-size:14px}
+.sg-premium-home .lux-profile-copy p{font-size:12px;line-height:1.6}
+.sg-premium-home .lux-gold-btn{font-size:11px;padding:12px}
+.sg-premium-home .lux-profile-stats{grid-template-columns:repeat(2,1fr)}
+.sg-premium-home .lux-guides{padding:50px 15px}
+.sg-premium-home .lux-section-heading{align-items:start}
+.sg-premium-home .lux-section-heading h2{font-size:32px}
+.sg-premium-home .lux-section-heading>a{font-size:11px}
+.sg-premium-home .lux-guide-grid{gap:10px}
+.sg-premium-home .lux-guide-img{height:100px}
+.sg-premium-home .lux-guide-body{padding:12px 10px 43px;min-height:154px}
+.sg-premium-home .lux-guide-body strong{font-size:13px}
+.sg-premium-home .lux-guide-body>span{font-size:11px}
+.sg-premium-home .lux-guide-body i{bottom:10px;right:10px}
+.sg-premium-home .section{padding:52px 16px}
+.sg-premium-home .section h2{font-size:34px}
+.sg-premium-home .lux-last-cta{margin:25px 14px 40px;padding:25px;flex-direction:column;align-items:start}
+.sg-premium-home .lux-last-cta a{width:100%}
+}
+@media(prefers-reduced-motion:reduce){.sg-premium-home .lux-quick-card,.sg-premium-home .lux-guide-grid>a{transition:none}}
