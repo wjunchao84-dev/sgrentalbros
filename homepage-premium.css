@@ -184,3 +184,13 @@
 .sg-premium-home .lux-video-section .tiktok-video{border-radius:16px;overflow:hidden;border:1px solid #e2e8ee;box-shadow:0 14px 32px #1024430d;background:#fff}
 .sg-premium-home .lux-video-section .tiktok-video a{display:block;text-align:center;padding:14px;font-weight:800;font-size:12px;letter-spacing:.02em;color:#102443}
 .sg-premium-home .lux-video-section .tiktok-profile-cta{border-radius:14px}
+
+/* Restore the original SGRentalBros mascot prominently at the top of the premium homepage. */
+.sg-premium-home .lux-hero-mascot{position:absolute;z-index:1;right:14%;bottom:65px;width:clamp(205px,24vw,365px);pointer-events:none;filter:drop-shadow(0 18px 22px rgba(12,36,72,.19))}
+.sg-premium-home .lux-hero-mascot img{display:block;width:100%;height:auto;max-height:400px;object-fit:contain;object-position:bottom center}
+.sg-premium-home .lux-hero-inner{position:relative;z-index:2;max-width:790px}
+.sg-premium-home .lux-hero-callout{z-index:3;right:2.5%;bottom:37px}
+@media(max-width:1120px){.sg-premium-home .lux-hero-mascot{right:9%;width:clamp(190px,23vw,280px)}.sg-premium-home .lux-hero-inner{max-width:720px}}
+@media(max-width:900px){.sg-premium-home .lux-hero-mascot{right:2%;width:200px;bottom:64px}.sg-premium-home .lux-hero-inner{max-width:680px;padding-right:160px}.sg-premium-home .lux-hero-callout{display:none}}
+@media(max-width:650px){.sg-premium-home .lux-hero{min-height:610px}.sg-premium-home .lux-hero-inner{padding:42px 20px 205px;max-width:100%}.sg-premium-home .lux-hero-mascot{width:165px;right:3%;bottom:52px}.sg-premium-home .lux-benefits{max-width:250px}.sg-premium-home .lux-hero-bg{opacity:.29}.sg-premium-home .lux-hero:before{background:linear-gradient(90deg,#fffffff5,#ffffffd6)}}
+@media(max-width:370px){.sg-premium-home .lux-hero{min-height:660px}.sg-premium-home .lux-hero-mascot{width:140px;bottom:60px}}
