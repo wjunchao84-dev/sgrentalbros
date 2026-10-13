@@ -507,3 +507,20 @@ footer{padding-top:60px;padding-bottom:60px}
 .about-jc-transactions small{display:block;font-size:12px;line-height:1.65;color:#687789}
 @media(max-width:850px){.about-jc-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.about-jc-visual img{width:min(100%,330px)}}
 @media(max-width:450px){.about-jc-stats>div{padding:17px 13px}.about-jc-stats strong{font-size:30px}.about-jc-stats span{font-size:12px}.about-jc-transactions{padding:17px}}
+
+/* Move-out checklist: printable, mobile-friendly task list */
+.moveout-guide .moveout-note{margin:22px 0;padding:18px 22px;background:#f5f8fb;border:1px solid #dce4ec;border-radius:12px}
+.moveout-guide .moveout-note strong{display:block;color:#102f4c;font-size:15px}
+.moveout-guide .moveout-note p{margin:6px 0 0;font-size:14px;line-height:1.65;color:#516278}
+.moveout-list{list-style:none;margin:24px 0 35px;padding:0;display:grid;gap:12px}
+.moveout-item{border:1px solid #dce4ec;border-radius:12px;padding:18px 20px;background:#fff}
+.moveout-item label{display:flex;gap:13px;align-items:flex-start;cursor:pointer}
+.moveout-item input[type=checkbox]{appearance:auto;accent-color:#b68528;flex:0 0 20px;width:20px;height:20px;margin:2px 0 0}
+.moveout-item label span{display:flex;flex-direction:column;gap:5px}
+.moveout-item label strong{font-size:17px;color:#102f4c;line-height:1.4}
+.moveout-item label small{font-size:11px;letter-spacing:.025em;font-weight:800;color:#926b28;text-transform:uppercase}
+.moveout-item>p{margin:10px 0 0 33px;color:#516278;font-size:14px;line-height:1.7}
+.moveout-item:has(input:checked){border-color:#d7c294;background:#fcfaf4}
+.moveout-item input:checked+span strong{text-decoration:line-through;text-decoration-color:#b8aa89}
+@media(max-width:550px){.moveout-item{padding:15px 13px}.moveout-item>p{margin-left:33px}.moveout-item label strong{font-size:15px}}
+@media print{.moveout-guide .moveout-list{display:block}.moveout-item{break-inside:avoid;margin-bottom:9px;padding:12px;border:1px solid #bbb}.moveout-item>p{font-size:12px}.nav,.portal-cta,.sg-direct-contact,footer{display:none!important}}
