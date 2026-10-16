@@ -524,3 +524,17 @@ footer{padding-top:60px;padding-bottom:60px}
 .moveout-item input:checked+span strong{text-decoration:line-through;text-decoration-color:#b8aa89}
 @media(max-width:550px){.moveout-item{padding:15px 13px}.moveout-item>p{margin-left:33px}.moveout-item label strong{font-size:15px}}
 @media print{.moveout-guide .moveout-list{display:block}.moveout-item{break-inside:avoid;margin-bottom:9px;padding:12px;border:1px solid #bbb}.moveout-item>p{font-size:12px}.nav,.portal-cta,.sg-direct-contact,footer{display:none!important}}
+
+
+/* Eye-comfort surfaces across inner pages: warm off-white, not bright white. */
+:root{--white:#f4f1eb;--bg:#eeeae3;--line:#d9d4ca;--muted:#566678}
+body{background:var(--white)}
+body:not(.sg-premium-home) .card,
+body:not(.sg-premium-home) .portal-card,
+body:not(.sg-premium-home) .viewing-box,
+body:not(.sg-premium-home) .facts>div,
+body:not(.sg-premium-home) .brand-promise,
+body:not(.sg-premium-home) .moveout-item{background:#faf8f3}
+body:not(.sg-premium-home) input,
+body:not(.sg-premium-home) textarea,
+body:not(.sg-premium-home) select{background-color:#faf8f3}
