@@ -283,3 +283,27 @@
  .sg-premium-home .lux-profile{grid-template-columns:85px minmax(0,1fr)}
  .sg-premium-home .lux-profile-copy h2{font-size:24px}
 }
+
+
+/* Softer, low-glare warm-neutral palette — keeps approved navy/gold layout. */
+.sg-premium-home{background:#f2f0eb;color:#18283a}
+.sg-premium-home .lux-nav{background:rgba(244,241,234,.98);border-bottom-color:#d9d4ca}
+.sg-premium-home .lux-hero{background:#eeeae2}
+.sg-premium-home .lux-hero:before{background:linear-gradient(90deg,#f1eee8 0%,#f1eee8 27%,#f1eee8ed 41%,#f1eee8b0 53%,#f1eee815 74%,transparent 100%)}
+.sg-premium-home .lux-hero-callout,
+.sg-premium-home .lux-search-tabs a:not(.active),
+.sg-premium-home .lux-search-panel,
+.sg-premium-home .lux-quick-card,
+.sg-premium-home .card,
+.sg-premium-home .lux-mobile-expand{background:#faf8f3;border-color:#dfd9ce}
+.sg-premium-home .lux-search-panel input{background:#f2f0eb;border-color:#cec8be}
+.sg-premium-home .lux-profile{background:linear-gradient(105deg,#eae6de,#f3f0e9 58%,#ece8e0)}
+.sg-premium-home .lux-quick,
+.sg-premium-home #rentals,
+.sg-premium-home #sales,
+.sg-premium-home #tiktok{background-color:#f2f0eb}
+.sg-premium-home .lux-guide-grid>a{background-color:#faf8f3;border-color:#dfd9ce}
+@media(max-width:700px){
+.sg-premium-home.sg-mobile-enhanced .lux-mobile-fold:not(.lux-mobile-open){background:#eeeae3!important}
+.sg-premium-home.sg-mobile-enhanced #landlords.lux-mobile-fold:not(.lux-mobile-open){background:#eae7e0!important}
+}
