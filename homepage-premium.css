@@ -314,3 +314,13 @@
 .sg-premium-home .lux-video-section .tiktok-video>a{display:flex;align-items:center;justify-content:center;min-height:48px;background:#f5efe1;color:#17324d;text-decoration:underline;text-underline-offset:3px}
 .sg-premium-home .lux-video-section .tiktok-video>a:focus-visible{outline:3px solid #bd8c3b;outline-offset:-3px}
 @media(max-width:700px){.sg-premium-home .lux-video-section .tiktok-video{flex:0 0 min(76vw,290px)}.sg-premium-home .tiktok-fallback-note{padding:0 2px}}
+
+/* YouTube property walkthroughs — visible separately from TikTok. */
+.sg-premium-home .sg-youtube-feature{background:#f2f0eb;padding-top:42px;padding-bottom:48px}
+.sg-premium-home .sg-youtube-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.sg-premium-home .sg-youtube-feature-card{display:block;background:#faf8f3;border:1px solid #dfd9ce;border-radius:16px;overflow:hidden;text-decoration:none;color:#102443;box-shadow:0 8px 22px #10244310}
+.sg-premium-home .sg-youtube-feature-card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.sg-premium-home .sg-youtube-feature-card span{display:block;padding:14px 16px;font-size:12px;font-weight:800;letter-spacing:.03em}
+.sg-premium-home .sg-youtube-feature-card:hover{transform:translateY(-2px);box-shadow:0 12px 25px #10244318}
+.sg-premium-home .sg-youtube-feature-footer{margin:22px 0 0;text-align:center}
+@media(max-width:700px){.sg-premium-home .sg-youtube-feature{padding-top:28px;padding-bottom:30px}.sg-premium-home .sg-youtube-feature-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:3px 2px 12px}.sg-premium-home .sg-youtube-feature-card{flex:0 0 min(76vw,310px);scroll-snap-align:start}}
