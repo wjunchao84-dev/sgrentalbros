@@ -324,3 +324,11 @@
 .sg-premium-home .sg-youtube-feature-card:hover{transform:translateY(-2px);box-shadow:0 12px 25px #10244318}
 .sg-premium-home .sg-youtube-feature-footer{margin:22px 0 0;text-align:center}
 @media(max-width:700px){.sg-premium-home .sg-youtube-feature{padding-top:28px;padding-bottom:30px}.sg-premium-home .sg-youtube-feature-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:3px 2px 12px}.sg-premium-home .sg-youtube-feature-card{flex:0 0 min(76vw,310px);scroll-snap-align:start}}
+
+/* Click-to-play YouTube walkthroughs: accessible controls and lightweight initial load. */
+.sg-premium-home .sg-youtube-play{display:block;width:100%;padding:0;border:0;background:#faf8f3;color:#102443;text-align:left;cursor:pointer;font:inherit}
+.sg-premium-home .sg-youtube-play img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.sg-premium-home .sg-youtube-play span{display:block;padding:14px 16px;font-size:12px;font-weight:800;letter-spacing:.03em}
+.sg-premium-home .sg-youtube-play:focus-visible{outline:3px solid #b5812f;outline-offset:-3px}
+.sg-premium-home .sg-youtube-watch-external{display:block;padding:0 16px 14px;color:#375576;font-size:11px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.sg-premium-home .sg-youtube-feature-card iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}
