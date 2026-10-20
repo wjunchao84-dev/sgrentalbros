@@ -307,3 +307,10 @@
 .sg-premium-home.sg-mobile-enhanced .lux-mobile-fold:not(.lux-mobile-open){background:#eeeae3!important}
 .sg-premium-home.sg-mobile-enhanced #landlords.lux-mobile-fold:not(.lux-mobile-open){background:#eae7e0!important}
 }
+
+/* Video walkthrough fallback and reliable touch targets. */
+.sg-premium-home .tiktok-fallback-note{margin:8px 0 16px;font-size:13px;line-height:1.55;color:#52647a}
+.sg-premium-home .tiktok-fallback-note strong{color:#172e48}
+.sg-premium-home .lux-video-section .tiktok-video>a{display:flex;align-items:center;justify-content:center;min-height:48px;background:#f5efe1;color:#17324d;text-decoration:underline;text-underline-offset:3px}
+.sg-premium-home .lux-video-section .tiktok-video>a:focus-visible{outline:3px solid #bd8c3b;outline-offset:-3px}
+@media(max-width:700px){.sg-premium-home .lux-video-section .tiktok-video{flex:0 0 min(76vw,290px)}.sg-premium-home .tiktok-fallback-note{padding:0 2px}}
