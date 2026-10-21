@@ -343,3 +343,21 @@
 .sg-premium-home .lux-hero-inner>p.sg-landlord-hero-trust{font-size:12px;line-height:1.55;color:#52647a;margin:0 0 16px;font-weight:600}
 .sg-premium-home #landlords{scroll-margin-top:86px}
 @media(max-width:700px){.sg-premium-home .lux-hero-inner{padding-top:32px;padding-bottom:36px}.sg-premium-home .lux-hero h1{font-size:clamp(36px,9vw,49px);line-height:1.12;margin-bottom:13px}.sg-premium-home .lux-hero-inner>p{margin-bottom:17px}.sg-premium-home .sg-landlord-hero-actions{gap:9px}.sg-premium-home .sg-landlord-hero-actions a{flex:1 1 145px;padding:12px 10px;font-size:11px}.sg-premium-home .lux-hero-inner>p.sg-landlord-hero-trust{font-size:11px}.sg-premium-home #landlords{scroll-margin-top:65px}}
+
+/* Phase 1 mobile screenshot follow-up: remove oversized quick links and clarify hero. */
+@media(max-width:700px){
+ .sg-premium-home .lux-mobile-jumps{display:none!important}
+ .sg-premium-home .lux-nav{background:#102640!important;border-bottom-color:#102640!important}
+ .sg-premium-home .lux-nav #menuBtn{color:#fff!important}
+ .sg-premium-home .lux-hero{min-height:0!important}
+ .sg-premium-home .lux-hero-inner{padding:28px 20px 145px!important;max-width:100%!important}
+ .sg-premium-home .lux-hero h1{font-size:clamp(34px,9vw,44px)!important;letter-spacing:-1px!important}
+ .sg-premium-home .lux-hero-inner>p:not(.sg-landlord-hero-trust){max-width:100%!important;font-size:14px!important;line-height:1.55!important;margin-bottom:16px!important}
+ .sg-premium-home .sg-landlord-hero-actions{margin-bottom:10px!important}
+ .sg-premium-home .sg-landlord-hero-actions a{min-height:47px!important}
+ .sg-premium-home .lux-hero-inner>p.sg-landlord-hero-trust{max-width:calc(100% - 130px)!important;font-size:10px!important;line-height:1.5!important}
+ .sg-premium-home .lux-hero-mascot{width:115px!important;right:3%!important;bottom:60px!important}
+ .sg-premium-home .lux-search-wrap{margin:-30px auto 0!important}
+ .sg-premium-home .lux-search-tabs{overflow-x:auto;scroll-snap-type:x proximity}
+ .sg-premium-home .lux-search-tabs a{scroll-snap-align:start}
+}
