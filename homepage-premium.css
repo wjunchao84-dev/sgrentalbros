@@ -332,3 +332,14 @@
 .sg-premium-home .sg-youtube-play:focus-visible{outline:3px solid #b5812f;outline-offset:-3px}
 .sg-premium-home .sg-youtube-watch-external{display:block;padding:0 16px 14px;color:#375576;font-size:11px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .sg-premium-home .sg-youtube-feature-card iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}
+
+/* Phase 1: prominent landlord conversion actions, while retaining all video and TikTok sections. */
+.sg-premium-home .sg-landlord-hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0 0 14px}
+.sg-premium-home .sg-landlord-hero-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border-radius:10px;font-size:13px;font-weight:800;letter-spacing:.025em;text-align:center;text-decoration:none;transition:transform .18s ease,box-shadow .18s ease}
+.sg-premium-home .sg-landlord-primary{background:#b78537;color:#081e39;box-shadow:0 7px 19px #81602328}
+.sg-premium-home .sg-landlord-secondary{background:#fff;color:#102443;border:1px solid #aab3bd}
+.sg-premium-home .sg-landlord-hero-actions a:hover{transform:translateY(-2px)}
+.sg-premium-home .sg-landlord-hero-actions a:focus-visible{outline:3px solid #102443;outline-offset:3px}
+.sg-premium-home .lux-hero-inner>p.sg-landlord-hero-trust{font-size:12px;line-height:1.55;color:#52647a;margin:0 0 16px;font-weight:600}
+.sg-premium-home #landlords{scroll-margin-top:86px}
+@media(max-width:700px){.sg-premium-home .lux-hero-inner{padding-top:32px;padding-bottom:36px}.sg-premium-home .lux-hero h1{font-size:clamp(36px,9vw,49px);line-height:1.12;margin-bottom:13px}.sg-premium-home .lux-hero-inner>p{margin-bottom:17px}.sg-premium-home .sg-landlord-hero-actions{gap:9px}.sg-premium-home .sg-landlord-hero-actions a{flex:1 1 145px;padding:12px 10px;font-size:11px}.sg-premium-home .lux-hero-inner>p.sg-landlord-hero-trust{font-size:11px}.sg-premium-home #landlords{scroll-margin-top:65px}}
