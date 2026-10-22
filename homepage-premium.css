@@ -361,3 +361,8 @@
  .sg-premium-home .lux-search-tabs{overflow-x:auto;scroll-snap-type:x proximity}
  .sg-premium-home .lux-search-tabs a{scroll-snap-align:start}
 }
+
+/* Circular SGRentalBros mascot header logo */
+.sg-homepage .brand-logo img{width:76px!important;height:76px!important;max-height:none!important;object-fit:contain;display:block}
+.sg-homepage .lux-nav{min-height:92px}
+@media(max-width:767px){.sg-homepage .brand-logo img{width:64px!important;height:64px!important}.sg-homepage .lux-nav{min-height:78px}}
