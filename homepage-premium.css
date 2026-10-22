@@ -366,3 +366,6 @@
 .sg-homepage .brand-logo img{width:76px!important;height:76px!important;max-height:none!important;object-fit:contain;display:block}
 .sg-homepage .lux-nav{min-height:92px}
 @media(max-width:767px){.sg-homepage .brand-logo img{width:64px!important;height:64px!important}.sg-homepage .lux-nav{min-height:78px}}
+
+/* Remove square white corners around the uploaded circular logo */
+.sg-homepage .lux-nav .brand-logo img{border-radius:50%!important;clip-path:circle(49% at 50% 50%)!important;background:#102640!important}
