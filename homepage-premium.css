@@ -369,3 +369,11 @@
 
 /* Remove square white corners around the uploaded circular logo */
 .sg-homepage .lux-nav .brand-logo img{border-radius:50%!important;clip-path:circle(49% at 50% 50%)!important;background:#102640!important}
+
+/* Compact mobile quick navigation: reach key pages without lengthy scrolling */
+@media(max-width:767px){
+ .sg-premium-home .lux-mobile-jumps{display:flex!important;align-items:center;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;white-space:nowrap;padding:10px 14px!important;margin:0!important;background:#f7f8fa;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+ .sg-premium-home .lux-mobile-jumps::-webkit-scrollbar{display:none}
+ .sg-premium-home .lux-mobile-jumps a{flex:0 0 auto;scroll-snap-align:start;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border:1px solid #dce2ea;border-radius:999px;background:#fff;color:#102640;text-decoration:none;font-size:12px;font-weight:700;line-height:1.2}
+ .sg-premium-home .lux-mobile-jumps a:focus-visible{outline:3px solid #c99b43;outline-offset:2px}
+}
