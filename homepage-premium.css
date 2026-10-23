@@ -377,3 +377,12 @@
  .sg-premium-home .lux-mobile-jumps a{flex:0 0 auto;scroll-snap-align:start;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border:1px solid #dce2ea;border-radius:999px;background:#fff;color:#102640;text-decoration:none;font-size:12px;font-weight:700;line-height:1.2}
  .sg-premium-home .lux-mobile-jumps a:focus-visible{outline:3px solid #c99b43;outline-offset:2px}
 }
+
+/* Mobile conversion and video polish: no changes to property listings */
+@media(max-width:767px){
+ .sg-premium-home .sg-landlord-hero-actions{display:flex!important;flex-wrap:wrap;gap:10px}
+ .sg-premium-home .sg-landlord-hero-actions a{min-height:48px;display:inline-flex;align-items:center;justify-content:center;text-align:center}
+ .sg-premium-home .sg-youtube-play{max-width:100%;overflow:hidden;border-radius:12px}
+ .sg-premium-home .sg-youtube-play img{display:block;max-width:100%;height:auto}
+ .sg-premium-home .sg-direct-contact{max-width:calc(100vw - 24px)}
+}
