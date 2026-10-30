@@ -577,3 +577,7 @@ body:not(.sg-homepage):not(.sg-premium-home) > header.nav .brand-logo img{displa
 .bro-guide .sg-related-reading{padding:16px!important}
 }
 @media(prefers-reduced-motion:reduce){.encyclopedia-quickstart a,.encyclopedia-visual a{transition:none!important}}
+
+/* Brand mascot is a circular badge within a white square source image.
+   Mask the outer square consistently on every page, including mobile and footer. */
+img[src*="DBD09088-7335-4AC8-B8DC-190A22A9D2D1.png"]{clip-path:circle(47% at 50% 50%);-webkit-clip-path:circle(47% at 50% 50%);background:transparent!important;}
