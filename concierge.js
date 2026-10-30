@@ -7,6 +7,7 @@ const WA='6590091649';
 const aiNewChat=document.getElementById('aiNewChat');
 let latestLead=null;
 let latestViewing=null;
+let summaryRequestIndex=-1;
 let requestInFlight=false;
 const STARTERS={
  'find-home':'I need to find a rental home. Help me build my search and viewing plan.',
@@ -20,7 +21,7 @@ const STARTERS={
 if(aiNewChat){aiNewChat.addEventListener('click',()=>{
  if(requestInFlight)return;
  if(history.length&&!window.confirm('Start a new chat? This will clear your previous AI conversation from this browser.'))return;
- history.length=0;latestLead=null;latestViewing=null;out.replaceChildren();input.value='';
+ history.length=0;latestLead=null;latestViewing=null;summaryRequestIndex=-1;out.replaceChildren();input.value='';
  updateSharePreview();
  try{localStorage.removeItem('sgrb_ai_history')}catch(e){}
  input.focus();
@@ -51,10 +52,12 @@ function updateSharePreview(){
 }
 
 
-async function send(q){
+async function send(q,{retry=false}={}){
  if(requestInFlight)return;
  requestInFlight=true;
- addBubble('user',q);history.push({role:'user',content:q});input.value='';
+ const previous=history[history.length-1];
+ if(!(retry&&previous&&previous.role==='user'&&previous.content===q)){addBubble('user',q);history.push({role:'user',content:q});}
+ input.value='';
  try{localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-MAX_HISTORY)))}catch(e){}
  updateSharePreview();
  setBusy(true);const thinking=document.createElement('div');thinking.className='bot-bubble ai-thinking';thinking.textContent='SGRentalBros AI is working on this…';out.appendChild(thinking);
@@ -63,11 +66,11 @@ async function send(q){
   const data=await r.json();thinking.remove();
   if(!r.ok)throw new Error(data.error||'AI unavailable');
   const reply=data.reply||'Tell me a little more about what you need.';
-  history.push({role:'assistant',content:reply});latestLead=data.lead_summary||latestLead;latestViewing=data.viewing_brief||latestViewing;addBot(reply,data.suggestions||[],data.resources||[],data.journey||null,data.property_search||null,data.viewing_brief||null,data.next_step||null,data.lead_summary||null,!!data.handoff);
+  history.push({role:'assistant',content:reply});latestLead=data.lead_summary||latestLead;if(data.lead_summary)summaryRequestIndex=history.length-1;latestViewing=data.viewing_brief||latestViewing;addBot(reply,data.suggestions||[],data.resources||[],data.journey||null,data.property_search||null,data.viewing_brief||null,data.next_step||null,data.lead_summary||null,!!data.handoff);
   try{localStorage.setItem('sgrb_ai_history',JSON.stringify(history.slice(-MAX_HISTORY)))}catch(e){}
   updateSharePreview();
  }catch(err){
-  thinking.remove();addFallback(err&&err.name==='AbortError'?'The AI took longer than expected to respond.':(err.message||'The AI service is temporarily unavailable.'),q);
+  thinking.remove();addFallback(err&&err.name==='AbortError'?'The AI took longer than expected to respond.':'The AI service is temporarily unavailable. Please try again or contact JC directly.',q);
  }finally{requestInFlight=false;setBusy(false);updateSharePreview()}
 }
 function addBubble(role,text){
@@ -86,7 +89,8 @@ function addBot(text,suggestions,resources,journey,search,viewing,next,lead,hand
 }
 function addFallback(msg,q){
  const d=document.createElement('div');d.className='bot-bubble';
- d.innerHTML='<b>The live AI is not available yet.</b><p>'+esc(msg)+'</p><p>You can still send your request directly to Wang and continue from there.</p><a class="mini ai-wa" target="_blank" rel="noopener" href="'+wa(q)+'">CONTINUE WITH WANG ON WHATSAPP →</a>';
+ d.innerHTML='<b>We couldn’t complete this AI request.</b><p>'+esc(msg)+'</p><p>You can still send your request directly to Wang and continue from there.</p><a class="mini ai-wa" target="_blank" rel="noopener" href="'+wa(q)+'">CONTINUE WITH WANG ON WHATSAPP →</a>';
+ const retry=document.createElement('button');retry.type='button';retry.className='mini ai-retry';retry.textContent='TRY THIS REQUEST AGAIN';retry.addEventListener('click',()=>{if(requestInFlight)return;d.remove();send(q,{retry:true})});d.appendChild(retry);
  out.appendChild(d);scroll();
 }
 function wa(extra=''){
@@ -100,17 +104,20 @@ function wa(extra=''){
   const visitor=history.filter(m=>m.role==='user').map(m=>m.content).join('\n- ');
   body+='Visitor request:\n- '+(visitor||'I would like to speak with Wang JC about a property enquiry.');
  }
+ const updates=l?history.slice(summaryRequestIndex+1).filter(m=>m.role==='user').map(m=>m.content):[];
+ if(updates.length)body+='\n\nLATEST VISITOR DETAILS\n'+updates.join('\n\n');
  if(extra)body+='\n\n'+extra;
  body+='\n\nPlease help me with the next steps.';
  return 'https://wa.me/'+WA+'?text='+encodeURIComponent(body);
 }
 function formatDate(s){if(!/^\d{4}-\d{2}-\d{2}$/.test(String(s||'')))return s||'';const d=new Date(s+'T12:00:00+08:00');return new Intl.DateTimeFormat('en-SG',{day:'numeric',month:'short',year:'numeric'}).format(d)}
-function setBusy(v){const b=form.querySelector('button');b.disabled=v;b.textContent=v?'THINKING…':'SEND →';input.disabled=v;if(aiNewChat)aiNewChat.disabled=v;document.querySelectorAll('[data-text],[data-prefill],.ai-suggestions button').forEach(x=>x.disabled=v)}
+function setBusy(v){const b=form.querySelector('button');b.disabled=v;b.textContent=v?'THINKING…':'SEND →';input.disabled=v;if(aiNewChat)aiNewChat.disabled=v;document.querySelectorAll('[data-text],[data-prefill],.ai-suggestions button,.ai-retry').forEach(x=>x.disabled=v)}
 function scroll(){const chat=out.closest('.ai-chat');if(chat)chat.scrollTop=chat.scrollHeight}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 
 let restored=false;try{const saved=JSON.parse(localStorage.getItem('sgrb_ai_history')||'[]');if(Array.isArray(saved)&&saved.length){saved.slice(-MAX_HISTORY).forEach(m=>{if(!m||!['user','assistant'].includes(m.role)||typeof m.content!=='string')return;const clean={role:m.role,content:m.content.slice(0,2500)};history.push(clean);addBubble(clean.role,clean.content)});restored=history.length>0}}catch(e){}
-const entryParams=new URLSearchParams(location.search);const area=entryParams.get('area');const property=entryParams.get('property');const starter=entryParams.get('start');if(property&&property.trim()){input.value='I am interested in viewing '+property.trim().slice(0,100)+'. Please help me check the listing details and plan a viewing.';input.focus()}else if(area&&area.trim()){input.value='I am looking for a rental home around '+area.trim().slice(0,100)+'. Please help me shortlist options and plan viewings.';input.focus()}else if(!restored&&starter&&STARTERS[starter]){input.value=STARTERS[starter];input.focus()}
+const entryParams=new URLSearchParams(location.search);const area=entryParams.get('area');const property=entryParams.get('property');const starter=entryParams.get('start');if(property&&property.trim()){input.value='I am interested in viewing '+property.trim().slice(0,100)+'. Please help me check the listing details and plan a viewing.';input.focus()}else if(area&&area.trim()){input.value='I am looking for a rental home around '+area.trim().slice(0,100)+'. Please help me shortlist options and plan viewings.';input.focus()}else if(starter&&STARTERS[starter]){input.value=STARTERS[starter];input.focus()}
 
 // Show exactly what will be placed into WhatsApp, including restored conversations.
 updateSharePreview();
+
