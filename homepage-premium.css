@@ -387,3 +387,6 @@
  .sg-premium-home .sg-direct-contact{max-width:calc(100vw - 24px)}
 }
 
+
+/* Enquiry overlays must sit above the sticky homepage navigation. */
+.sg-premium-home .modal{z-index:2000}
