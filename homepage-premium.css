@@ -367,8 +367,8 @@
 .sg-homepage .lux-nav{min-height:92px}
 @media(max-width:767px){.sg-homepage .brand-logo img{width:64px!important;height:64px!important}.sg-homepage .lux-nav{min-height:78px}}
 
-/* Remove square white corners around the uploaded circular logo */
-.sg-homepage .lux-nav .brand-logo img{border-radius:50%!important;clip-path:circle(49% at 50% 50%)!important;background:#102640!important}
+/* Preserve the complete transparent mascot without circular cropping. */
+.sg-homepage .lux-nav .brand-logo img{border-radius:0;clip-path:none;-webkit-clip-path:none;background:transparent}
 
 /* Compact mobile quick navigation: reach key pages without lengthy scrolling */
 @media(max-width:767px){
@@ -386,3 +386,4 @@
  .sg-premium-home .sg-youtube-play img{display:block;max-width:100%;height:auto}
  .sg-premium-home .sg-direct-contact{max-width:calc(100vw - 24px)}
 }
+
