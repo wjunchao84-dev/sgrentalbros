@@ -1,6 +1,7 @@
 export const SGRB_KNOWLEDGE={
 brand:{name:"SGRentalBros",market:"Singapore",agent:"Wang JC",agency:"Huttons Asia Pte Ltd",cea:"R008015F",whatsapp:"6590091649"},
 properties:[
+ {name:"Eight Riversuites",url:"eight-riversuites.html",address:"2 Whampoa East",rent:3300,beds:"1",baths:1,size:"441 sqft",available:"26 Dec 2026",areas:["Boon Keng","Bendemeer","Whampoa","Balestier","Toa Payoh"],note:"Fully furnished; balcony with unblocked outlook. Listing checked 2 Nov 2026; confirm current availability."},
  {name:"Prestige Heights",url:"prestige-heights.html",address:"348 Balestier Road",rent:2800,beds:"Studio",baths:1,size:"344 sqft",available:"10 Oct 2026",areas:["Balestier","Toa Payoh"]},
  {name:"The Armadale",url:"the-armadale.html",address:"60 Gilstead Road",rent:5800,beds:"3",baths:2,size:"1,119 sqft",available:"15 Oct 2026",areas:["Newton","Novena"]},
  {name:"Sommerville Grandeur",url:"sommerville-grandeur.html",address:"3 Farrer Drive",rent:7500,beds:"3",baths:3,size:"1,830 sqft",available:"15 Nov 2026",areas:["Farrer Road","Tanglin","Holland","Bukit Timah"],note:"Short-term lease available"}
